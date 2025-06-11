@@ -1,5 +1,6 @@
 import 'package:ecommerce/core/helper/spacing.dart';
-import 'package:ecommerce/core/theme/colors_manger.dart';
+import 'package:ecommerce/feature/auth/ui/widgets/custom_button.dart';
+import 'package:ecommerce/feature/auth/ui/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
 class LoginTextFields extends StatelessWidget {
@@ -13,44 +14,21 @@ class LoginTextFields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.sizeOf(context).width;
-
     return Column(
       children: [
-        TextField(
+        CustomTextField(
+          labelText: 'Email',
+          hintText: 'Enter Your Email',
           keyboardType: TextInputType.emailAddress,
-          decoration: InputDecoration(
-            labelText: 'Email',
-            hintText: 'Enter your email',
-            suffixIcon: const Icon(Icons.email_outlined),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14.0),
-              borderSide: BorderSide(
-                color: ColorsManger.primaryColor,
-                width: 1.5,
-              ),
-            ),
-          ),
+          icon: const Icon(Icons.email_outlined),
         ),
         verticalSpacing(20),
-        TextField(
+        CustomTextField(
+          labelText: 'Password',
+          hintText: 'Enter Your Password',
+          isObscure: isObscure,
           keyboardType: TextInputType.visiblePassword,
-          obscureText: isObscure,
-          decoration: InputDecoration(
-            labelText: 'Password',
-            hintText: 'Enter your Password',
-            suffixIcon: GestureDetector(
-              onTap: onObscureChanged,
-              child: Icon(isObscure ? Icons.visibility : Icons.visibility_off),
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14.0),
-              borderSide: BorderSide(
-                color: ColorsManger.primaryColor,
-                width: 1.5,
-              ),
-            ),
-          ),
+          onObscureChanged: onObscureChanged,
         ),
         verticalSpacing(10),
         Align(
@@ -58,31 +36,11 @@ class LoginTextFields extends StatelessWidget {
           child: TextButton(onPressed: () {}, child: Text('Forget Password?')),
         ),
         verticalSpacing(20),
-        SizedBox(
-          width: screenWidth * 0.8,
-          height: 56,
-          child: ElevatedButton(
-            onPressed: () {
-              //TODO: Implement login functionality
-            },
-            style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.all(
-                ColorsManger.primaryColor,
-              ),
-              foregroundColor: WidgetStateProperty.all(
-                ColorsManger.backgroundColor,
-              ),
-              padding: WidgetStateProperty.all(
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              ),
-              shape: WidgetStateProperty.all(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14.0),
-                ),
-              ),
-            ),
-            child: const Text('Login'),
-          ),
+        CustomButton(
+          buttonText: 'Login',
+          onPressed: () {
+            //TODO: Implement login functionality
+          },
         ),
       ],
     );
