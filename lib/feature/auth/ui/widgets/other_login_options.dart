@@ -1,5 +1,7 @@
 import 'package:ecommerce/core/helper/spacing.dart';
+import 'package:ecommerce/feature/auth/controller/cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class OtherLoginOptions extends StatelessWidget {
@@ -21,7 +23,9 @@ class OtherLoginOptions extends StatelessWidget {
             ),
             horizontalSpacing(10),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                context.read<AuthCubit>().signInWithGoogle();
+              },
               icon: Icon(FontAwesomeIcons.google, size: 42),
             ),
           ],
