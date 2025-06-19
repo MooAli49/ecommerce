@@ -18,13 +18,15 @@ class OtherLoginOptions extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () async {
+                await context.read<AuthCubit>().signInWithFacebook();
+              },
               icon: Icon(FontAwesomeIcons.facebook, size: 42),
             ),
             horizontalSpacing(10),
             IconButton(
-              onPressed: () {
-                context.read<AuthCubit>().signInWithGoogle();
+              onPressed: () async {
+                await context.read<AuthCubit>().signInWithGoogle();
               },
               icon: Icon(FontAwesomeIcons.google, size: 42),
             ),

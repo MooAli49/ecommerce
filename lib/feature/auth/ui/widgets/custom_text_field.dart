@@ -11,6 +11,7 @@ class CustomTextField extends StatelessWidget {
     this.isObscure = false,
     this.onObscureChanged,
     this.icon,
+    this.controller,
   });
 
   final String labelText;
@@ -19,10 +20,12 @@ class CustomTextField extends StatelessWidget {
   final bool isObscure;
   final VoidCallback? onObscureChanged;
   final Widget? icon;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       keyboardType: keyboardType,
       obscureText: isObscure,
       decoration: InputDecoration(

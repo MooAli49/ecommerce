@@ -61,6 +61,25 @@
 		</dict>
 	</array>
 	<!-- End of the Google Sign-in Section -->
+	
+	<!-- Facebbook Sign-in Section -->
+	<key>CFBundleURLTypes</key>
+	<array>
+	<dict>
+	<key>CFBundleURLSchemes</key>
+	<array>
+		<string>fb956036166528934</string>
+	</array>
+	</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>956036166528934</string>
+	<key>FacebookClientToken</key>
+	<string>CLIENT-TOKEN</string>
+	<key>FacebookDisplayName</key>
+	<string>Ecommerce</string>
+	<!-- End of the Facebook Sign-in Section -->
+
 
 </dict>
 </plist>

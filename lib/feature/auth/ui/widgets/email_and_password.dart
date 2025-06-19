@@ -1,10 +1,11 @@
 import 'package:ecommerce/core/helper/spacing.dart';
-import 'package:ecommerce/feature/auth/ui/widgets/custom_button.dart';
+import 'package:ecommerce/feature/auth/controller/cubit/auth_cubit.dart';
 import 'package:ecommerce/feature/auth/ui/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginTextFields extends StatelessWidget {
-  const LoginTextFields({
+class EmailAndPassword extends StatelessWidget {
+  const EmailAndPassword({
     super.key,
     required this.isObscure,
     required this.onObscureChanged,
@@ -17,6 +18,7 @@ class LoginTextFields extends StatelessWidget {
     return Column(
       children: [
         CustomTextField(
+          controller: context.read<AuthCubit>().emailController,
           labelText: 'Email',
           hintText: 'Enter Your Email',
           keyboardType: TextInputType.emailAddress,
@@ -24,6 +26,7 @@ class LoginTextFields extends StatelessWidget {
         ),
         verticalSpacing(20),
         CustomTextField(
+          controller: context.read<AuthCubit>().passwordController,
           labelText: 'Password',
           hintText: 'Enter Your Password',
           isObscure: isObscure,
@@ -34,13 +37,6 @@ class LoginTextFields extends StatelessWidget {
         Align(
           alignment: Alignment.centerRight,
           child: TextButton(onPressed: () {}, child: Text('Forget Password?')),
-        ),
-        verticalSpacing(20),
-        CustomButton(
-          buttonText: 'Login',
-          onPressed: () {
-            //TODO: Implement login functionality
-          },
         ),
       ],
     );
