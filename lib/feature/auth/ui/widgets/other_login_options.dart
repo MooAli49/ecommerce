@@ -19,7 +19,7 @@ class OtherLoginOptions extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () async {
-                await context.read<AuthCubit>().signInWithFacebook();
+                //await context.read<AuthCubit>().signInWithFacebook();
               },
               icon: Icon(FontAwesomeIcons.facebook, size: 42),
             ),

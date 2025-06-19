@@ -65,58 +65,52 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> signInWithFacebook() async {
-    try {
-      emit(AuthLoading());
-
-      // Trigger the sign-in flow
-      final LoginResult loginResult = await _facebookAuth.login();
-      log('Facebook login triggered');
-      // Check if the login was successful
-
-      log('LoginResult status: ${loginResult.status}');
-      if (loginResult.status != LoginStatus.success ||
-          loginResult.accessToken == null) {
-        emit(
-          AuthError(
-            'Facebook login failed: ${loginResult.message ?? "No access token"}',
-          ),
-        );
-        return;
-      }
-      log('LoginResult message: ${loginResult.message}');
-
-      // If the login was successful, get the access token
-      final String accessToken = loginResult.accessToken!.tokenString;
-      log('LoginResult accessToken: ${loginResult.accessToken}');
-
-      // Create a credential and sign in to Firebase
-      final OAuthCredential facebookAuthCredential =
-          FacebookAuthProvider.credential(accessToken);
-      log('FacebookAuthProvider credential created');
-
-      final userCredential = await _firebaseAuth.signInWithCredential(
-        facebookAuthCredential,
-      );
-      log('Firebase sign-in with Facebook completed');
-
-      final user = userCredential.user;
-      log('User after sign-in: ${user?.email}');
-
-      if (user != null) {
-        emit(AuthSuccess(user));
-      } else {
-        emit(AuthError('Failed to get user data after sign in'));
-      }
-    } on FirebaseAuthException catch (e) {
-      emit(AuthError(e.message ?? 'An error occurred during authentication'));
-      log('FirebaseAuthException: ${e.message}');
-    } catch (e, stackTrace) {
-      emit(AuthError('An unexpected error occurred during sign in'));
-      log('Facebook sign-in unexpected error: $e');
-      log('StackTrace: $stackTrace');
-    }
-  }
+  // Uncomment the following code if you want to implement Facebook sign-in
+  // Future<void> signInWithFacebook() async {
+  //   try {
+  //     emit(AuthLoading());
+  //     // Trigger the sign-in flow
+  //     final LoginResult loginResult = await _facebookAuth.login();
+  //     log('Facebook login triggered');
+  //     // Check if the login was successful
+  //     log('LoginResult status: ${loginResult.status}');
+  //     if (loginResult.status != LoginStatus.success ||
+  //         loginResult.accessToken == null) {
+  //       emit(
+  //         AuthError(
+  //           'Facebook login failed: ${loginResult.message ?? "No access token"}',
+  //         ),
+  //       );
+  //       return;
+  //     }
+  //     log('LoginResult message: ${loginResult.message}');
+  //     // If the login was successful, get the access token
+  //     final String accessToken = loginResult.accessToken!.tokenString;
+  //     log('LoginResult accessToken: ${loginResult.accessToken}');
+  //     // Create a credential and sign in to Firebase
+  //     final OAuthCredential facebookAuthCredential =
+  //         FacebookAuthProvider.credential(accessToken);
+  //     log('FacebookAuthProvider credential created');
+  //     final userCredential = await _firebaseAuth.signInWithCredential(
+  //       facebookAuthCredential,
+  //     );
+  //     log('Firebase sign-in with Facebook completed');
+  //     final user = userCredential.user;
+  //     log('User after sign-in: ${user?.email}');
+  //     if (user != null) {
+  //       emit(AuthSuccess(user));
+  //     } else {
+  //       emit(AuthError('Failed to get user data after sign in'));
+  //     }
+  //   } on FirebaseAuthException catch (e) {
+  //     emit(AuthError(e.message ?? 'An error occurred during authentication'));
+  //     log('FirebaseAuthException: ${e.message}');
+  //   } catch (e, stackTrace) {
+  //     emit(AuthError('An unexpected error occurred during sign in'));
+  //     log('Facebook sign-in unexpected error: $e');
+  //     log('StackTrace: $stackTrace');
+  //   }
+  // }
 
   Future<void> signInWithEmailAndPassword({
     required String email,

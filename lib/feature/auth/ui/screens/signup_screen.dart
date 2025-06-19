@@ -4,21 +4,27 @@ import 'package:ecommerce/core/helper/spacing.dart';
 import 'package:ecommerce/core/routing/routes.dart';
 import 'package:ecommerce/feature/auth/controller/cubit/auth_cubit.dart';
 import 'package:ecommerce/feature/auth/ui/widgets/custom_button.dart';
-import 'package:ecommerce/feature/auth/ui/widgets/email_and_password.dart';
-import 'package:ecommerce/feature/auth/ui/widgets/other_login_options.dart';
+import 'package:ecommerce/feature/auth/ui/widgets/custom_text_field.dart';
 import 'package:ecommerce/feature/auth/ui/widgets/welcome_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   bool isObscure = true;
+  final TextEditingController nameController = TextEditingController();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,18 +33,18 @@ class _LoginScreenState extends State<LoginScreen> {
         if (state is AuthError) {
           snackBarMessage(context, state.message, Colors.red);
         } else if (state is AuthSuccess) {
-          snackBarMessage(context, 'Successfully signed in!', Colors.green);
+          snackBarMessage(context, 'Successfully signed up!', Colors.green);
           context.pushNamed(Routes.home);
         }
       },
       child: Scaffold(
         appBar: AppBar(backgroundColor: Colors.white, elevation: 0),
-        body: loginScreenBody(),
+        body: signupScreenBody(),
       ),
     );
   }
 
-  SafeArea loginScreenBody() {
+  SafeArea signupScreenBody() {
     return SafeArea(
       child: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
@@ -50,16 +56,36 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     children: [
                       WelcomeRow(
-                        welcomeText: 'Welcome Back',
-                        subtitleText: 'Login to your account',
-                        buttonText: 'Sign Up',
+                        welcomeText: 'Create Account',
+                        subtitleText: 'Sign up to get started',
+                        buttonText: 'login',
                         onPressed: () {
-                          context.pushNamed(Routes.register);
+                          Navigator.of(context).pop(); // Go back to login
                         },
                       ),
                       verticalSpacing(20),
-                      EmailAndPassword(
+                      CustomTextField(
+                        controller: nameController,
+                        labelText: 'Name',
+                        hintText: 'Enter Your Name',
+                        icon: const Icon(Icons.person_outline),
+                      ),
+                      verticalSpacing(20),
+                      CustomTextField(
+                        controller: context.read<AuthCubit>().emailController,
+                        labelText: 'Email',
+                        hintText: 'Enter Your Email',
+                        keyboardType: TextInputType.emailAddress,
+                        icon: const Icon(Icons.email_outlined),
+                      ),
+                      verticalSpacing(20),
+                      CustomTextField(
+                        controller:
+                            context.read<AuthCubit>().passwordController,
+                        labelText: 'Password',
+                        hintText: 'Enter Your Password',
                         isObscure: isObscure,
+                        keyboardType: TextInputType.visiblePassword,
                         onObscureChanged: () {
                           setState(() {
                             isObscure = !isObscure;
@@ -68,11 +94,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       verticalSpacing(20),
                       CustomButton(
-                        buttonText: 'Login',
+                        buttonText: 'Sign Up',
                         onPressed: () async {
                           await context
                               .read<AuthCubit>()
-                              .signInWithEmailAndPassword(
+                              .signUpWithEmailAndPassword(
                                 email:
                                     context
                                         .read<AuthCubit>()
@@ -88,8 +114,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               );
                         },
                       ),
-                      verticalSpacing(20),
-                      OtherLoginOptions(),
                     ],
                   ),
                 ),
