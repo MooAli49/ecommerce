@@ -18,13 +18,6 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   bool isObscure = true;
-  final TextEditingController nameController = TextEditingController();
-
-  @override
-  void dispose() {
-    nameController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +38,7 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   SafeArea signupScreenBody() {
+    final AuthCubit authController = context.read<AuthCubit>();
     return SafeArea(
       child: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
@@ -65,14 +59,14 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       verticalSpacing(20),
                       CustomTextField(
-                        controller: nameController,
+                        controller: authController.nameController,
                         labelText: 'Name',
                         hintText: 'Enter Your Name',
                         icon: const Icon(Icons.person_outline),
                       ),
                       verticalSpacing(20),
                       CustomTextField(
-                        controller: context.read<AuthCubit>().emailController,
+                        controller: authController.emailController,
                         labelText: 'Email',
                         hintText: 'Enter Your Email',
                         keyboardType: TextInputType.emailAddress,
@@ -80,8 +74,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       verticalSpacing(20),
                       CustomTextField(
-                        controller:
-                            context.read<AuthCubit>().passwordController,
+                        controller: authController.passwordController,
                         labelText: 'Password',
                         hintText: 'Enter Your Password',
                         isObscure: isObscure,
@@ -99,17 +92,11 @@ class _SignupScreenState extends State<SignupScreen> {
                           await context
                               .read<AuthCubit>()
                               .signUpWithEmailAndPassword(
+                                name: authController.nameController.text,
                                 email:
-                                    context
-                                        .read<AuthCubit>()
-                                        .emailController
-                                        .text
-                                        .trim(),
+                                    authController.emailController.text.trim(),
                                 password:
-                                    context
-                                        .read<AuthCubit>()
-                                        .passwordController
-                                        .text
+                                    authController.passwordController.text
                                         .trim(),
                               );
                         },

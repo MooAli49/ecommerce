@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:ecommerce/core/web_service/firestore_user.dart';
+import 'package:ecommerce/feature/auth/data/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +25,9 @@ class AuthCubit extends Cubit<AuthState> {
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   final FacebookAuth _facebookAuth = FacebookAuth.instance;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirestoreUser _firestoreUser = FirestoreUser();
 
+  TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -53,8 +57,21 @@ class AuthCubit extends Cubit<AuthState> {
       final UserCredential userCredential = await _firebaseAuth
           .signInWithCredential(credential);
 
-      if (userCredential.user != null) {
-        emit(AuthSuccess(userCredential.user!));
+      final user = userCredential.user;
+      if (user != null) {
+        // Save user to Firestore
+        final userModel = UserModel(
+          id: user.uid,
+          name: user.displayName ?? '',
+          email: user.email ?? '',
+          photoUrl: user.photoURL ?? '',
+        );
+        try {
+          await _firestoreUser.addUser(userModel);
+          emit(AuthSuccess(user));
+        } catch (e) {
+          emit(AuthError('Failed to add user to Firestore'));
+        }
       } else {
         emit(AuthError('Failed to get user data after sign in'));
       }
@@ -145,6 +162,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> signUpWithEmailAndPassword({
+    required String name,
     required String email,
     required String password,
   }) async {
@@ -152,11 +170,26 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthLoading());
       final UserCredential userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
+
+      // Update display name in Firebase Auth
+      await userCredential.user?.updateDisplayName(name);
+
+      // Create user model for Firestore
+      final user = UserModel(
+        id: userCredential.user?.uid ?? '',
+        name: name,
+        email: email,
+        photoUrl: userCredential.user?.photoURL ?? '',
+      );
+
+      // Save user to Firestore
+      await _firestoreUser.addUser(user);
+
       emit(AuthSuccess(userCredential.user!));
     } on FirebaseAuthException catch (e) {
       emit(AuthError(e.message ?? 'An error occurred during authentication'));
     } catch (e) {
-      emit(AuthError('An unexpected error occurred during sign in'));
+      emit(AuthError('An unexpected error occurred during sign up'));
     }
   }
 
