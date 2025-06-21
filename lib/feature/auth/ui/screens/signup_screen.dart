@@ -3,8 +3,8 @@ import 'package:ecommerce/core/helper/extensions.dart';
 import 'package:ecommerce/core/helper/spacing.dart';
 import 'package:ecommerce/core/routing/routes.dart';
 import 'package:ecommerce/feature/auth/controller/cubit/auth_cubit.dart';
+import 'package:ecommerce/feature/auth/ui/widgets/auth_text_field.dart';
 import 'package:ecommerce/feature/auth/ui/widgets/custom_button.dart';
-import 'package:ecommerce/feature/auth/ui/widgets/custom_text_field.dart';
 import 'package:ecommerce/feature/auth/ui/widgets/welcome_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -58,14 +58,14 @@ class _SignupScreenState extends State<SignupScreen> {
                         },
                       ),
                       verticalSpacing(20),
-                      CustomTextField(
+                      AuthTextField(
                         controller: authController.nameController,
                         labelText: 'Name',
                         hintText: 'Enter Your Name',
                         icon: const Icon(Icons.person_outline),
                       ),
                       verticalSpacing(20),
-                      CustomTextField(
+                      AuthTextField(
                         controller: authController.emailController,
                         labelText: 'Email',
                         hintText: 'Enter Your Email',
@@ -73,7 +73,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         icon: const Icon(Icons.email_outlined),
                       ),
                       verticalSpacing(20),
-                      CustomTextField(
+                      AuthTextField(
                         controller: authController.passwordController,
                         labelText: 'Password',
                         hintText: 'Enter Your Password',
