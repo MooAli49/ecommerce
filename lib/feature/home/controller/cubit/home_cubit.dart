@@ -4,4 +4,10 @@ part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
+  int _curruntHomeIndex = 0;
+  int get curruntHomeIndex => _curruntHomeIndex;
+
+  void changeHomeIndex(int index) {
+    _curruntHomeIndex = index;
+  }
 }
