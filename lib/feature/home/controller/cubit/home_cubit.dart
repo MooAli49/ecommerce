@@ -7,7 +7,5 @@ class HomeCubit extends Cubit<HomeState> {
   int _curruntHomeIndex = 0;
   int get curruntHomeIndex => _curruntHomeIndex;
 
-  void changeHomeIndex(int index) {
-    _curruntHomeIndex = index;
-  }
+ 
 }
