@@ -25,7 +25,7 @@ class _ControlScreenState extends State<ControlScreen> {
         final int currentIndex = context.read<ControlCubit>().state;
         final List<Widget> mainScreenBodyWidgets = [
           BlocProvider(
-            create: (context) => getIt<HomeCubit>(),
+            create: (context) => getIt<HomeCubit>()..fetchCategories(),
             child: HomeScreen(),
           ),
           BlocProvider(

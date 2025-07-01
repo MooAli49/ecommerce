@@ -10,18 +10,15 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> categories = [
-      'Electronics',
-      'Fashion',
-      'Home & Garden',
-      'Sports',
-      'Toys & Games',
-      'Health & Beauty',
-      'Automotive',
-      'Books',
-      'Music',
-      'Movies & TV',
-    ];
+    // final List<String> categories = [
+    //   'Men',
+    //   'Women',
+    //   'Kids',
+    //   'Plus Size',
+    //   'Unisex',
+    //   'New Arrivals',
+    //   'Best Sellers',
+    // ];
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(top: 70, left: 20, right: 20),
@@ -29,7 +26,7 @@ class HomeScreen extends StatelessWidget {
           slivers: [
             SliverToBoxAdapter(child: SearchField()),
             SliverToBoxAdapter(child: verticalSpacing(20)),
-            SliverToBoxAdapter(child: CategoriesHeader(categories: categories)),
+            SliverToBoxAdapter(child: CategoriesHeader()),
             SliverToBoxAdapter(child: verticalSpacing(20)),
             SliverToBoxAdapter(child: BestSellersHeader()),
             SliverToBoxAdapter(child: verticalSpacing(5)),

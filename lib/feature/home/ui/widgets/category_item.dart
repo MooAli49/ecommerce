@@ -1,9 +1,10 @@
 import 'package:ecommerce/core/helper/spacing.dart';
+import 'package:ecommerce/feature/home/data/models/category_model.dart';
 import 'package:flutter/material.dart';
 
 class CategoryItem extends StatelessWidget {
-  const CategoryItem({super.key, required this.categoryItem});
-  final String categoryItem;
+  const CategoryItem({super.key, required this.categoryModel});
+  final CategoryModel categoryModel;
 
   @override
   Widget build(BuildContext context) {
@@ -12,13 +13,24 @@ class CategoryItem extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircleAvatar(
-            radius: 30,
-            backgroundColor: Colors.grey[300],
-            child: Icon(Icons.category, size: 30, color: Colors.black54),
+          SizedBox(
+            width: 60,
+            height: 60,
+            child: Image.network(
+              categoryModel.displayImageUrl,
+              fit: BoxFit.cover,
+            ),
           ),
           verticalSpacing(5),
-          Text(categoryItem),
+          Text(
+            categoryModel.name,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );
