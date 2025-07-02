@@ -1,9 +1,9 @@
+import 'package:ecommerce/feature/home/data/models/product_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class BestSellerItem extends StatelessWidget {
-  const BestSellerItem({super.key, required this.index});
-  final int index;
+  const BestSellerItem({super.key, required this.product});
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +30,23 @@ class BestSellerItem extends StatelessWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-                image: DecorationImage(
-                  image: AssetImage('assets/images/test_chair.jpg'),
-                  fit: BoxFit.cover,
-                ),
               ),
               child: Stack(
                 children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(16),
+                    ),
+                    child: Image.network(
+                      product.imageUrl,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: double.infinity,
+                      errorBuilder:
+                          (context, error, stackTrace) =>
+                              Icon(Icons.broken_image),
+                    ),
+                  ),
                   // Favorite button
                   Positioned(
                     top: 8,
@@ -69,7 +79,7 @@ class BestSellerItem extends StatelessWidget {
                 children: [
                   // Product Name
                   Text(
-                    'Product Name',
+                    product.name,
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -78,9 +88,9 @@ class BestSellerItem extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  // Product Brand
+                  // Product Description
                   Text(
-                    'Product Brand',
+                    product.description,
                     style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -90,7 +100,7 @@ class BestSellerItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '\$300',
+                        '\$${product.price}',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -102,7 +112,7 @@ class BestSellerItem extends StatelessWidget {
                           Icon(Icons.star, size: 14, color: Colors.amber),
                           SizedBox(width: 2),
                           Text(
-                            '4.5',
+                            product.rating,
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.grey[600],

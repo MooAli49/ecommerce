@@ -19,6 +19,9 @@ class CategoryItem extends StatelessWidget {
             child: Image.network(
               categoryModel.displayImageUrl,
               fit: BoxFit.cover,
+              errorBuilder:
+                  (context, error, stackTrace) =>
+                      Icon(Icons.broken_image, size: 40, color: Colors.grey),
             ),
           ),
           verticalSpacing(5),

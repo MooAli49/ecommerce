@@ -12,5 +12,5 @@ void main() async {
 
   setupGetIt();
 
-  runApp( ECommerceApp(appRouter: AppRouter(),));
+  runApp(ECommerceApp(appRouter: AppRouter()));
 }

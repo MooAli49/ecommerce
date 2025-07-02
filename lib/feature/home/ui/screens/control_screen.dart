@@ -1,8 +1,9 @@
 import 'package:ecommerce/core/di/di.dart';
 import 'package:ecommerce/feature/cart/cart_screen.dart';
 import 'package:ecommerce/feature/cart/cubit/cart_cubit.dart';
+import 'package:ecommerce/feature/home/controller/cubit/categories_cubit.dart';
 import 'package:ecommerce/feature/home/controller/cubit/control_cubit.dart';
-import 'package:ecommerce/feature/home/controller/cubit/home_cubit.dart';
+import 'package:ecommerce/feature/home/controller/cubit/products_cubit.dart';
 import 'package:ecommerce/feature/home/ui/screens/home_screen.dart';
 import 'package:ecommerce/feature/home/ui/widgets/custom_bottom_navigation_bar.dart';
 import 'package:ecommerce/feature/profile/cubit/profile_cubit.dart';
@@ -24,8 +25,15 @@ class _ControlScreenState extends State<ControlScreen> {
       builder: (context, state) {
         final int currentIndex = context.read<ControlCubit>().state;
         final List<Widget> mainScreenBodyWidgets = [
-          BlocProvider(
-            create: (context) => getIt<HomeCubit>()..fetchCategories(),
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => getIt<CategoriesCubit>()..getCategories(),
+              ),
+              BlocProvider(
+                create: (context) => getIt<ProductsCubit>()..getProducts(),
+              ),
+            ],
             child: HomeScreen(),
           ),
           BlocProvider(
