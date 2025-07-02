@@ -1,4 +1,4 @@
-import 'package:ecommerce/core/widgets/headline_text.dart';
+import '../../../../core/widgets/headline_text.dart';
 import 'package:flutter/material.dart';
 
 class BestSellersHeader extends StatelessWidget {

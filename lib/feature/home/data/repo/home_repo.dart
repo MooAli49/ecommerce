@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce/feature/home/data/models/category_model.dart';
-import 'package:ecommerce/feature/home/data/models/product_model.dart';
+import '../models/category_model.dart';
+import '../models/product_model.dart';
 
 class HomeRepo {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;

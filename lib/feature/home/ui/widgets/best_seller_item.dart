@@ -1,4 +1,4 @@
-import 'package:ecommerce/feature/home/data/models/product_model.dart';
+import '../../data/models/product_model.dart';
 import 'package:flutter/material.dart';
 
 class BestSellerItem extends StatelessWidget {

@@ -1,5 +1,5 @@
-import 'package:ecommerce/feature/home/data/models/product_model.dart';
-import 'package:ecommerce/feature/home/data/repo/home_repo.dart';
+import '../../data/models/product_model.dart';
+import '../../data/repo/home_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'products_state.dart';

@@ -1,5 +1,5 @@
-import 'package:ecommerce/core/helper/spacing.dart';
-import 'package:ecommerce/feature/home/data/models/category_model.dart';
+import '../../../../core/helper/spacing.dart';
+import '../../data/models/category_model.dart';
 import 'package:flutter/material.dart';
 
 class CategoryItem extends StatelessWidget {

@@ -1,6 +1,6 @@
-import 'package:ecommerce/core/helper/spacing.dart';
-import 'package:ecommerce/feature/auth/controller/cubit/auth_cubit.dart';
-import 'package:ecommerce/feature/auth/ui/widgets/auth_text_field.dart';
+import '../../../../core/helper/spacing.dart';
+import '../../controller/cubit/auth_cubit.dart';
+import 'auth_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

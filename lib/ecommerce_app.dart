@@ -1,5 +1,5 @@
-import 'package:ecommerce/core/routing/app_router.dart';
-import 'package:ecommerce/core/routing/routes.dart';
+import 'core/routing/app_router.dart';
+import 'core/routing/routes.dart';
 import 'package:flutter/material.dart';
 
 class ECommerceApp extends StatelessWidget {

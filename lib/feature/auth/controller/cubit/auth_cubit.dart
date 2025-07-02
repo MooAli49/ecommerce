@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:ecommerce/core/web_service/firestore_user.dart';
-import 'package:ecommerce/feature/auth/data/models/user_model.dart';
+import '../../../../core/web_service/firestore_user.dart';
+import '../../data/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

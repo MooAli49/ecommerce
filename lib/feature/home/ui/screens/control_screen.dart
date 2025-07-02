@@ -1,13 +1,13 @@
-import 'package:ecommerce/core/di/di.dart';
-import 'package:ecommerce/feature/cart/cart_screen.dart';
-import 'package:ecommerce/feature/cart/cubit/cart_cubit.dart';
-import 'package:ecommerce/feature/home/controller/cubit/categories_cubit.dart';
-import 'package:ecommerce/feature/home/controller/cubit/control_cubit.dart';
-import 'package:ecommerce/feature/home/controller/cubit/products_cubit.dart';
-import 'package:ecommerce/feature/home/ui/screens/home_screen.dart';
-import 'package:ecommerce/feature/home/ui/widgets/custom_bottom_navigation_bar.dart';
-import 'package:ecommerce/feature/profile/cubit/profile_cubit.dart';
-import 'package:ecommerce/feature/profile/profile_screen.dart';
+import '../../../../core/di/di.dart';
+import '../../../cart/cart_screen.dart';
+import '../../../cart/cubit/cart_cubit.dart';
+import '../../controller/cubit/categories_cubit.dart';
+import '../../controller/cubit/control_cubit.dart';
+import '../../controller/cubit/products_cubit.dart';
+import 'home_screen.dart';
+import '../widgets/custom_bottom_navigation_bar.dart';
+import '../../../profile/cubit/profile_cubit.dart';
+import '../../../profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

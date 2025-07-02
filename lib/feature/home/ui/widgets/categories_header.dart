@@ -1,11 +1,11 @@
 import 'dart:developer';
 
-import 'package:ecommerce/core/helper/spacing.dart';
-import 'package:ecommerce/core/theme/colors_manger.dart';
-import 'package:ecommerce/core/widgets/headline_text.dart';
-import 'package:ecommerce/feature/home/controller/cubit/categories_cubit.dart';
-import 'package:ecommerce/feature/home/data/models/category_model.dart';
-import 'package:ecommerce/feature/home/ui/widgets/category_item.dart';
+import '../../../../core/helper/spacing.dart';
+import '../../../../core/theme/colors_manger.dart';
+import '../../../../core/widgets/headline_text.dart';
+import '../../controller/cubit/categories_cubit.dart';
+import '../../data/models/category_model.dart';
+import 'category_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

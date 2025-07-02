@@ -1,10 +1,10 @@
-import 'package:ecommerce/core/di/di.dart';
-import 'package:ecommerce/core/routing/routes.dart';
-import 'package:ecommerce/feature/auth/controller/cubit/auth_cubit.dart';
-import 'package:ecommerce/feature/auth/ui/screens/login_screen.dart';
-import 'package:ecommerce/feature/auth/ui/screens/signup_screen.dart';
-import 'package:ecommerce/feature/home/controller/cubit/control_cubit.dart';
-import 'package:ecommerce/feature/home/ui/screens/control_screen.dart';
+import '../di/di.dart';
+import 'routes.dart';
+import '../../feature/auth/controller/cubit/auth_cubit.dart';
+import '../../feature/auth/ui/screens/login_screen.dart';
+import '../../feature/auth/ui/screens/signup_screen.dart';
+import '../../feature/home/controller/cubit/control_cubit.dart';
+import '../../feature/home/ui/screens/control_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

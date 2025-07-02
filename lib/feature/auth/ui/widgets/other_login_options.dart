@@ -1,5 +1,5 @@
-import 'package:ecommerce/core/helper/spacing.dart';
-import 'package:ecommerce/feature/auth/controller/cubit/auth_cubit.dart';
+import '../../../../core/helper/spacing.dart';
+import '../../controller/cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
