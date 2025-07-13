@@ -1,4 +1,3 @@
-import '../../../../core/theme/colors_manger.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
@@ -16,9 +15,11 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ButtonStyle(
-          backgroundColor: WidgetStateProperty.all(ColorsManger.primary),
+          backgroundColor: WidgetStateProperty.all(
+            Theme.of(context).colorScheme.primary,
+          ),
           foregroundColor: WidgetStateProperty.all(
-            ColorsManger.background,
+            Theme.of(context).colorScheme.onPrimary,
           ),
           padding: WidgetStateProperty.all(
             const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -27,7 +28,7 @@ class CustomButton extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
           ),
         ),
-        child:  Text(buttonText),
+        child: Text(buttonText),
       ),
     );
   }
