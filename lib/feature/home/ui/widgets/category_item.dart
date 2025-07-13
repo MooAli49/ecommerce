@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+
 import '../../../../core/helper/spacing.dart';
 import '../../data/models/category_model.dart';
-import 'package:flutter/material.dart';
 
 class CategoryItem extends StatelessWidget {
   const CategoryItem({super.key, required this.categoryModel});
@@ -20,8 +21,13 @@ class CategoryItem extends StatelessWidget {
               categoryModel.displayImageUrl,
               fit: BoxFit.cover,
               errorBuilder:
-                  (context, error, stackTrace) =>
-                      Icon(Icons.broken_image, size: 40, color: Colors.grey),
+                  (context, error, stackTrace) => Icon(
+                    Icons.broken_image,
+                    size: 40,
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withOpacity(0.4),
+                  ),
             ),
           ),
           verticalSpacing(5),
@@ -30,7 +36,7 @@ class CategoryItem extends StatelessWidget {
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
-              color: Colors.black87,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
             textAlign: TextAlign.center,
           ),

@@ -10,7 +10,7 @@ class ProductDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -58,7 +58,11 @@ class ProductDetailScreen extends StatelessWidget {
     required VoidCallback onTap,
   }) {
     return IconButton(
-      icon: Icon(icon, color: Colors.white, size: 28),
+      icon: Icon(
+        icon,
+        color: Theme.of(context).colorScheme.onPrimary,
+        size: 28,
+      ),
       onPressed: onTap,
     );
   }
@@ -142,10 +146,10 @@ class ProductDetailScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
             blurRadius: 10,
             offset: const Offset(0, -2),
           ),
@@ -158,7 +162,7 @@ class ProductDetailScreen extends StatelessWidget {
             '\$${product.price}',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
-              color: Colors.blue[700],
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
           ElevatedButton(
@@ -168,12 +172,12 @@ class ProductDetailScreen extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),
-              backgroundColor: Colors.blue[700],
+              backgroundColor: Theme.of(context).colorScheme.primary,
             ),
-            child: const Text(
+            child: Text(
               'Add to Cart',
               style: TextStyle(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.onPrimary,
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),

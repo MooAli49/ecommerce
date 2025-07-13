@@ -1,15 +1,17 @@
+import 'package:ecommerce/core/theme/cubit/theme_cubit.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../core/di/di.dart';
-import '../../../cart/cart_screen.dart';
 import '../../../cart/cubit/cart_cubit.dart';
+import '../../../cart/screens/cart_screen.dart';
+import '../../../profile/cubit/profile_cubit.dart';
+import '../../../profile/profile_screen.dart';
 import '../../controller/cubit/categories_cubit.dart';
 import '../../controller/cubit/control_cubit.dart';
 import '../../controller/cubit/products_cubit.dart';
-import 'home_screen.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
-import '../../../profile/cubit/profile_cubit.dart';
-import '../../../profile/profile_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'home_screen.dart';
 
 class ControlScreen extends StatefulWidget {
   const ControlScreen({super.key});
@@ -52,6 +54,16 @@ class _ControlScreenState extends State<ControlScreen> {
           body: currentScreenBody,
           bottomNavigationBar: CustomBottomNavigationBar(
             currentIndex: currentIndex,
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              context.read<ThemeCubit>().toggleTheme();
+            },
+            child: Icon(
+              context.watch<ThemeCubit>().state.brightness == Brightness.light
+                  ? Icons.dark_mode
+                  : Icons.light_mode,
+            ),
           ),
         );
       },

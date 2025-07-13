@@ -15,3 +15,4 @@ final class ProductsError extends ProductsState {
   final String message;
   ProductsError(this.message);
 }
+ 

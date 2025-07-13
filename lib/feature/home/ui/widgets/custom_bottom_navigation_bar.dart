@@ -1,6 +1,7 @@
-import '../../controller/cubit/control_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../controller/cubit/control_cubit.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   const CustomBottomNavigationBar({super.key, required this.currentIndex});
@@ -17,7 +18,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
         shadowColor: Colors.black.withOpacity(0.15),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(32),
           ),
           child: BottomNavigationBar(
@@ -44,8 +45,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
                             : Icons.home_outlined,
                         color:
                             currentIndex == 0
-                                ? Colors.blue[700]
-                                : Colors.grey[500],
+                                ? Theme.of(context).colorScheme.primary
+                                : Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withOpacity(0.5),
                         size: 28,
                       ),
                       if (currentIndex == 0)
@@ -54,7 +57,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                           width: 8,
                           height: 8,
                           decoration: BoxDecoration(
-                            color: Colors.blue[700],
+                            color: Theme.of(context).colorScheme.primary,
                             shape: BoxShape.circle,
                           ),
                         ),
@@ -78,8 +81,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
                             : Icons.shopping_cart_outlined,
                         color:
                             currentIndex == 1
-                                ? Colors.blue[700]
-                                : Colors.grey[500],
+                                ? Theme.of(context).colorScheme.primary
+                                : Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withOpacity(0.5),
                         size: 28,
                       ),
                       if (currentIndex == 1)
@@ -88,7 +93,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                           width: 8,
                           height: 8,
                           decoration: BoxDecoration(
-                            color: Colors.blue[700],
+                            color: Theme.of(context).colorScheme.primary,
                             shape: BoxShape.circle,
                           ),
                         ),
@@ -112,8 +117,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
                             : Icons.person_outline,
                         color:
                             currentIndex == 2
-                                ? Colors.blue[700]
-                                : Colors.grey[500],
+                                ? Theme.of(context).colorScheme.primary
+                                : Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withOpacity(0.5),
                         size: 28,
                       ),
                       if (currentIndex == 2)
@@ -122,7 +129,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                           width: 8,
                           height: 8,
                           decoration: BoxDecoration(
-                            color: Colors.blue[700],
+                            color: Theme.of(context).colorScheme.primary,
                             shape: BoxShape.circle,
                           ),
                         ),
