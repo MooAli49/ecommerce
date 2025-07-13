@@ -1,4 +1,4 @@
-import 'package:ecommerce/core/theme/colors_manger.dart';
+import '../../../../core/theme/colors_manger.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {

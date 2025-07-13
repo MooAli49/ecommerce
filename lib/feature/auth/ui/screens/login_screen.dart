@@ -1,12 +1,12 @@
-import 'package:ecommerce/core/helper/constants.dart';
-import 'package:ecommerce/core/helper/extensions.dart';
-import 'package:ecommerce/core/helper/spacing.dart';
-import 'package:ecommerce/core/routing/routes.dart';
-import 'package:ecommerce/feature/auth/controller/cubit/auth_cubit.dart';
-import 'package:ecommerce/feature/auth/ui/widgets/custom_button.dart';
-import 'package:ecommerce/feature/auth/ui/widgets/email_and_password.dart';
-import 'package:ecommerce/feature/auth/ui/widgets/other_login_options.dart';
-import 'package:ecommerce/feature/auth/ui/widgets/welcome_row.dart';
+import '../../../../core/helper/constants.dart';
+import '../../../../core/helper/extensions.dart';
+import '../../../../core/helper/spacing.dart';
+import '../../../../core/routing/routes.dart';
+import '../../controller/cubit/auth_cubit.dart';
+import '../widgets/custom_button.dart';
+import '../widgets/email_and_password.dart';
+import '../widgets/other_login_options.dart';
+import '../widgets/welcome_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
