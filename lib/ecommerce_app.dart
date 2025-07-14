@@ -11,11 +11,16 @@ class ECommerceApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: context.watch<ThemeCubit>().state,
-      onGenerateRoute: appRouter.generateRoute,
-      initialRoute: Routes.home,
+    return BlocProvider<ThemeCubit>(
+      create: (_) => ThemeCubit(),
+      child: Builder(
+        builder: (context) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: context.watch<ThemeCubit>().state,
+          onGenerateRoute: appRouter.generateRoute,
+          initialRoute: Routes.home,
+        ),
+      ),
     );
   }
 }

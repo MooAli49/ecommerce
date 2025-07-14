@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/di/di.dart';
 import 'core/routing/app_router.dart';
-import 'core/theme/cubit/theme_cubit.dart';
 import 'ecommerce_app.dart';
 import 'feature/auth/controller/cubit/auth_cubit.dart';
 import 'feature/cart/controller/cubit/cart_cubit.dart';
@@ -24,7 +23,6 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => getIt<ThemeCubit>()),
         BlocProvider(create: (_) => getIt<AuthCubit>()),
         BlocProvider(create: (_) => getIt<CartCubit>()),
         BlocProvider(create: (_) => getIt<ControlCubit>()),

@@ -51,4 +51,15 @@ class CartDatabaseHelper {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
+
+  Future<List<CartProductModel>> getCartProducts() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(cartProductTable);
+
+    return maps.isNotEmpty
+        ? List.generate(maps.length, (i) {
+          return CartProductModel.fromJson(maps[i]);
+        })
+        : [];
+  }
 }

@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/helper/spacing.dart';
+import '../../controller/cubit/categories_cubit.dart';
+import '../../controller/cubit/products_cubit.dart';
 import '../widgets/best_sellers_header.dart';
 import '../widgets/categories_header.dart';
 import '../widgets/product_grid.dart';
 import '../widgets/search_field.dart';
 
 /// The main home screen displaying search, categories, and product grid.
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<CategoriesCubit>().getCategories();
+    context.read<ProductsCubit>().getProducts();
+  }
 
   static const double _horizontalPadding = 20.0;
 

@@ -13,14 +13,14 @@ class CartProductModel {
   CartProductModel.fromJson(Map<String, dynamic> json)
     : name = json['name'] ?? '',
       quantity = json['quantity'] ?? '',
-      imageUrl = json['imageUrl'] ?? '',
+      imageUrl = json['image'] ?? '',
       price = json['price'] ?? '';
 
   Map<String, dynamic> toJson() {
     return {
       'name': name,
       'quantity': quantity,
-      'imageUrl': imageUrl,
+      'image': imageUrl,
       'price': price,
     };
   }

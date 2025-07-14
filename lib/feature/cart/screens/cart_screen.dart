@@ -1,119 +1,143 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CartScreen extends StatelessWidget {
+import '../controller/cubit/cart_cubit.dart';
+
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
 
   @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<CartCubit>().fetchCartProducts();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    List<String> images = [
-      'assets/images/test_chair.jpg',
-      'assets/images/test_chair.jpg',
-      'assets/images/test_chair.jpg',
-      'assets/images/test_chair.jpg',
-      'assets/images/test_chair.jpg',
-    ];
-    List<String> names = [
-      'Product 1',
-      'Product 2',
-      'Product 3',
-      'Product 4',
-      'Product 5',
-    ];
-    List<double> prices = [29.99, 49.99, 19.99, 39.99, 59.99];
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: names.length,
-              itemBuilder: (context, index) {
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+      body: BlocBuilder<CartCubit, CartState>(
+        builder: (context, state) {
+          if (state is CartLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is CartError) {
+            return Center(child: Text(state.message));
+          } else if (state is CartLoaded) {
+            final products = state.products;
+            if (products.isEmpty) {
+              return const Center(child: Text('Your cart is empty.'));
+            }
+            double total = products.fold(
+              0,
+              (sum, item) => sum + (item.price * item.quantity),
+            );
+            return Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: products.length,
+                    itemBuilder: (context, index) {
+                      final product = products[index];
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              width: 90,
+                              height: 140,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(product.imageUrl),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      product.name,
+                                      textAlign: TextAlign.start,
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      //TODO implement quantity change
+                                      IconButton(
+                                        padding: EdgeInsets.zero,
+                                        onPressed: () {},
+                                        icon: const Icon(Icons.add),
+                                      ),
+                                      Text(product.quantity.toString()),
+                                      IconButton(
+                                        padding: EdgeInsets.zero,
+                                        onPressed: () {},
+                                        icon: const Icon(Icons.remove),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              '\$${product.price.toStringAsFixed(2)}',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+                Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        width: 90,
-                        height: 140,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(images[index]),
-                            fit: BoxFit.cover,
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          'Total: \$${total.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                names[index],
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                //TODO implement quantity change
-                                IconButton(
-                                  padding: EdgeInsets.zero,
-
-                                  onPressed: () {},
-                                  icon: Icon(Icons.add),
-                                ),
-                                Text('1'),
-                                IconButton(
-                                  padding: EdgeInsets.zero,
-                                  onPressed: () {},
-                                  icon: Icon(Icons.remove),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        '\$${prices[index].toStringAsFixed(2)}',
-                        style: TextStyle(fontSize: 16, color: Colors.green),
-                      ),
+                    ElevatedButton(
+                      onPressed: () {
+                        //TODO implement checkout
+                      },
+                      child: const Text('Checkout'),
                     ),
                   ],
-                );
-              },
-            ),
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    'Total: \$${prices.reduce((a, b) => a + b).toStringAsFixed(2)}',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  //TODO implement checkout
-                },
-                child: Text('Checkout'),
-              ),
-            ],
-          ),
-        ],
+              ],
+            );
+          }
+          return const SizedBox.shrink();
+        },
       ),
     );
   }

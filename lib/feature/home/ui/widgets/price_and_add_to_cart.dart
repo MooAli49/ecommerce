@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:ecommerce/core/helper/constants.dart';
 import 'package:ecommerce/feature/cart/controller/cubit/cart_cubit.dart';
 import 'package:ecommerce/feature/cart/data/model/cart_product_model.dart';
 import 'package:ecommerce/feature/home/data/models/product_model.dart';
@@ -42,7 +45,9 @@ class PriceAndAddToCart extends StatelessWidget {
                   quantity: 1,
                 ),
               );
-            }, // TODO: Add to cart functionality
+              log('Product added to cart: ${product.name}');
+              snackBarMessage(context, 'Product added to cart', Colors.green);
+            },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
               shape: RoundedRectangleBorder(
@@ -50,13 +55,30 @@ class PriceAndAddToCart extends StatelessWidget {
               ),
               backgroundColor: Theme.of(context).colorScheme.primary,
             ),
-            child: Text(
-              'Add to Cart',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimary,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+            child: BlocBuilder<CartCubit, CartState>(
+              builder: (context, state) {
+                if (state is CartLoading) {
+                  return const CircularProgressIndicator(color: Colors.white);
+                } else if (state is CartError) {
+                  return Text(
+                    'Error',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
+                } else {
+                  return Text(
+                    'Add to Cart',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
+                }
+              },
             ),
           ),
         ],
