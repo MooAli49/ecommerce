@@ -2,7 +2,7 @@ class ProductModel {
   String name;
   String description;
   String imageUrl;
-  String price;
+  num price;
   String color;
   String size;
   String rating;
@@ -20,7 +20,7 @@ class ProductModel {
     : name = json['name'] ?? '',
       description = json['description'] ?? '',
       imageUrl = json['imageUrl'] ?? '',
-      price = json['price'] ?? '',
+      price = json['price'] ?? 0.0,
       color = json['color'] ?? '',
       size = json['size'] ?? '',
       rating = json['rating'] ?? '4.5';

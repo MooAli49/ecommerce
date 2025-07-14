@@ -58,7 +58,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         subtitleText: 'Sign up to get started',
                         buttonText: 'login',
                         onPressed: () {
-                          Navigator.of(context).pop(); // Go back to login
+                          context.pop(); // Go back to login
                         },
                       ),
                       verticalSpacing(20),
