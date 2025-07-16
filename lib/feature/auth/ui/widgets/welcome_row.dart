@@ -37,7 +37,7 @@ class WelcomeRow extends StatelessWidget {
           onPressed: onPressed,
           child: Text(
             buttonText,
-            style: TextStyle(color: ColorsManger.primaryColor, fontSize: 16),
+            style: TextStyle(color: ColorsManger.primary, fontSize: 16),
           ),
         ),
       ],

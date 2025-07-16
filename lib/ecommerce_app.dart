@@ -1,6 +1,9 @@
-import 'package:ecommerce/core/routing/app_router.dart';
-import 'package:ecommerce/core/routing/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'core/routing/app_router.dart';
+import 'core/routing/routes.dart';
+import 'core/theme/cubit/theme_cubit.dart';
 
 class ECommerceApp extends StatelessWidget {
   const ECommerceApp({super.key, required this.appRouter});
@@ -8,10 +11,16 @@ class ECommerceApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: appRouter.generateRoute,
-      initialRoute: Routes.login,
+    return BlocProvider<ThemeCubit>(
+      create: (_) => ThemeCubit(),
+      child: Builder(
+        builder: (context) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: context.watch<ThemeCubit>().state,
+          onGenerateRoute: appRouter.generateRoute,
+          initialRoute: Routes.login,
+        ),
+      ),
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce/feature/auth/data/models/user_model.dart';
+import '../../feature/auth/data/models/user_model.dart';
 
 class FirestoreUser {
   CollectionReference users = FirebaseFirestore.instance.collection('users');

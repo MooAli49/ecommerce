@@ -1,9 +1,7 @@
-
-import 'package:ecommerce/core/theme/colors_manger.dart';
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatelessWidget {
-  const CustomTextField({
+class AuthTextField extends StatelessWidget {
+  const AuthTextField({
     super.key,
     required this.labelText,
     required this.hintText,
@@ -31,18 +29,19 @@ class CustomTextField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         hintText: hintText,
-        suffixIcon: keyboardType == TextInputType.visiblePassword
-            ? GestureDetector(
-                onTap: onObscureChanged,
-                child: Icon(
-                  isObscure ? Icons.visibility : Icons.visibility_off,
-                ),
-              )
-            : icon,
+        suffixIcon:
+            keyboardType == TextInputType.visiblePassword
+                ? GestureDetector(
+                  onTap: onObscureChanged,
+                  child: Icon(
+                    isObscure ? Icons.visibility : Icons.visibility_off,
+                  ),
+                )
+                : icon,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14.0),
           borderSide: BorderSide(
-            color: ColorsManger.primaryColor,
+            color: Theme.of(context).colorScheme.primary,
             width: 1.5,
           ),
         ),
