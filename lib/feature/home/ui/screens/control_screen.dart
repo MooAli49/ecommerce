@@ -1,7 +1,8 @@
+import 'package:ecommerce/core/theme/cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../cart/screens/cart_screen.dart';
+import '../../../cart/ui/screens/cart_screen.dart';
 import '../../../profile/profile_screen.dart';
 import '../../controller/cubit/control_cubit.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
@@ -33,16 +34,16 @@ class _ControlScreenState extends State<ControlScreen> {
           bottomNavigationBar: CustomBottomNavigationBar(
             currentIndex: currentIndex,
           ),
-          // floatingActionButton: FloatingActionButton(
-          //   onPressed: () {
-          //     context.read<ThemeCubit>().toggleTheme();
-          //   },
-          //   child: Icon(
-          //     context.watch<ThemeCubit>().state.brightness == Brightness.light
-          //         ? Icons.dark_mode
-          //         : Icons.light_mode,
-          //   ),
-          // ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              context.read<ThemeCubit>().toggleTheme();
+            },
+            child: Icon(
+              context.watch<ThemeCubit>().state.brightness == Brightness.light
+                  ? Icons.dark_mode
+                  : Icons.light_mode,
+            ),
+          ),
         );
       },
     );

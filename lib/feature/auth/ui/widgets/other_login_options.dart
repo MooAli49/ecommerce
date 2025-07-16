@@ -13,36 +13,20 @@ class OtherLoginOptions extends StatelessWidget {
     return Column(
       children: [
         Text(
-          'Or sign in with',
+          'Or Sign in with',
           style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
         ),
         verticalSpacing(20),
         // Spacer(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            IconButton(
-              onPressed: () async {
-                //await context.read<AuthCubit>().signInWithFacebook();
-              },
-              icon: Icon(
-                FontAwesomeIcons.facebook,
-                size: 42,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-            horizontalSpacing(10),
-            IconButton(
-              onPressed: () async {
-                await context.read<AuthCubit>().signInWithGoogle();
-              },
-              icon: Icon(
-                FontAwesomeIcons.google,
-                size: 42,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-          ],
+        IconButton(
+          onPressed: () async {
+            await context.read<AuthCubit>().signInWithGoogle();
+          },
+          icon: Icon(
+            FontAwesomeIcons.google,
+            size: 42,
+            color: Theme.of(context).colorScheme.primary,
+          ),
         ),
       ],
     );

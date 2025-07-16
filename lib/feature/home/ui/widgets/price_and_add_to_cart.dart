@@ -39,14 +39,13 @@ class PriceAndAddToCart extends StatelessWidget {
             onPressed: () {
               context.read<CartCubit>().addProductToCart(
                 CartProductModel(
+                  productId: product.productId,
                   name: product.name,
                   price: product.price,
                   imageUrl: product.imageUrl,
                   quantity: 1,
                 ),
               );
-              log('Product added to cart: ${product.name}');
-              snackBarMessage(context, 'Product added to cart', Colors.green);
             },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
@@ -60,10 +59,42 @@ class PriceAndAddToCart extends StatelessWidget {
                 if (state is CartLoading) {
                   return const CircularProgressIndicator(color: Colors.white);
                 } else if (state is CartError) {
+                  log('Something Went Wrong: ${product.name}');
+                  snackBarMessage(context, state.message, Colors.red);
                   return Text(
                     'Error',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.error,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
+                } else if (state is CartProductAdded) {
+                  log('Product added to cart: ${product.name}');
+                  snackBarMessage(
+                    context,
+                    'Product added to cart',
+                    Colors.green,
+                  );
+                  return Text(
+                    'Added ✔',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
+                } else if (state is CartProductUpdated) {
+                  log('Product quantity updated: ${product.name}');
+                  snackBarMessage(
+                    context,
+                    'Product quantity updated',
+                    Colors.green,
+                  );
+                  return Text(
+                    'Added ${state.product.quantity}',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),

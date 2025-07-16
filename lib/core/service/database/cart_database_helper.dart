@@ -35,10 +35,11 @@ class CartDatabaseHelper {
     // Create tables here
     await db.execute('''
           CREATE TABLE $cartProductTable (
-          $cartProductName TEXT NOT NULL,
-          $cartProductImage TEXT NOT NULL,
-          $cartProductPrice REAL NOT NULL,
-          $cartProductQuantity INTEGER NOT NULL
+          $cartProductIdColumn TEXT NOT NULL PRIMARY KEY,
+          $cartProductNameColumn TEXT NOT NULL,
+          $cartProductImageColumn TEXT NOT NULL,
+          $cartProductPriceColumn REAL NOT NULL,
+          $cartProductQuantityColumn INTEGER NOT NULL
         )
       ''');
   }
@@ -61,5 +62,38 @@ class CartDatabaseHelper {
           return CartProductModel.fromJson(maps[i]);
         })
         : [];
+  }
+
+  Future<bool> isProductInCart(String productId) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      cartProductTable,
+      where: '$cartProductIdColumn = ?',
+      whereArgs: [productId],
+      limit: 1,
+    );
+    return maps.isNotEmpty;
+  }
+
+  Future<void> updateCartProductQuantity(
+    String productId,
+    int newQuantity,
+  ) async {
+    final db = await database;
+    await db.update(
+      cartProductTable,
+      {cartProductQuantityColumn: newQuantity},
+      where: '$cartProductIdColumn = ?',
+      whereArgs: [productId],
+    );
+  }
+
+  Future<void> deleteCartProduct(String productId) async {
+    final db = await database;
+    await db.delete(
+      cartProductTable,
+      where: '$cartProductIdColumn = ?',
+      whereArgs: [productId],
+    );
   }
 }

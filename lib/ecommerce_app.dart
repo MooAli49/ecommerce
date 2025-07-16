@@ -18,7 +18,7 @@ class ECommerceApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: context.watch<ThemeCubit>().state,
           onGenerateRoute: appRouter.generateRoute,
-          initialRoute: Routes.home,
+          initialRoute: Routes.login,
         ),
       ),
     );

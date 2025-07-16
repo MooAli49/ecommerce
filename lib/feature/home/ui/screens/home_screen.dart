@@ -9,7 +9,6 @@ import '../widgets/categories_header.dart';
 import '../widgets/product_grid.dart';
 import '../widgets/search_field.dart';
 
-/// The main home screen displaying search, categories, and product grid.
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -51,5 +50,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-/// Displays the product grid, handling loading, error, and loaded states.
