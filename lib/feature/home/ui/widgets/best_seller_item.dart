@@ -16,11 +16,13 @@ class BestSellerItem extends StatelessWidget {
         tag: product.imageUrl,
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withOpacity(0.07),
                 spreadRadius: 1,
                 blurRadius: 8,
                 offset: Offset(0, 2),
@@ -36,7 +38,9 @@ class BestSellerItem extends StatelessWidget {
                 child: Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(16),
+                    ),
                   ),
                   child: Stack(
                     children: [
@@ -61,13 +65,17 @@ class BestSellerItem extends StatelessWidget {
                         child: Container(
                           padding: EdgeInsets.all(4),
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.9),
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.surface.withOpacity(0.9),
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
                             Icons.favorite_border,
                             size: 18,
-                            color: Colors.grey[600],
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurface.withOpacity(0.5),
                           ),
                         ),
                       ),
@@ -90,7 +98,7 @@ class BestSellerItem extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
-                          color: Colors.black87,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -98,7 +106,12 @@ class BestSellerItem extends StatelessWidget {
                       // Product Description
                       Text(
                         product.description,
-                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onSurface.withOpacity(0.6),
+                        ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -111,7 +124,7 @@ class BestSellerItem extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: Colors.blue[700],
+                              color: Theme.of(context).colorScheme.primary,
                             ),
                           ),
                           Row(
@@ -122,7 +135,9 @@ class BestSellerItem extends StatelessWidget {
                                 product.rating,
                                 style: TextStyle(
                                   fontSize: 12,
-                                  color: Colors.grey[600],
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface.withOpacity(0.6),
                                 ),
                               ),
                             ],

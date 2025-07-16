@@ -1,5 +1,6 @@
-import '../../../../core/widgets/headline_text.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../core/widgets/headline_text.dart';
 
 class BestSellersHeader extends StatelessWidget {
   const BestSellersHeader({super.key});
@@ -15,7 +16,10 @@ class BestSellersHeader extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {},
-          child: Text('See All', style: TextStyle(color: Colors.blue)),
+          child: Text(
+            'See All',
+            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+          ),
         ),
       ],
     );

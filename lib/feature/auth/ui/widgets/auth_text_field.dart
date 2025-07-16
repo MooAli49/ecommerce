@@ -1,4 +1,3 @@
-import '../../../../core/theme/colors_manger.dart';
 import 'package:flutter/material.dart';
 
 class AuthTextField extends StatelessWidget {
@@ -41,7 +40,10 @@ class AuthTextField extends StatelessWidget {
                 : icon,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14.0),
-          borderSide: BorderSide(color: ColorsManger.primaryColor, width: 1.5),
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.primary,
+            width: 1.5,
+          ),
         ),
       ),
     );

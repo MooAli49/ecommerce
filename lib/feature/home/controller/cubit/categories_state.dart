@@ -15,3 +15,4 @@ final class CategoriesError extends CategoriesState {
   final String message;
   CategoriesError(this.message);
 }
+ 

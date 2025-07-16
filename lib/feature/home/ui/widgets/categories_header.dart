@@ -1,13 +1,13 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../core/helper/spacing.dart';
-import '../../../../core/theme/colors_manger.dart';
 import '../../../../core/widgets/headline_text.dart';
 import '../../controller/cubit/categories_cubit.dart';
 import '../../data/models/category_model.dart';
 import 'category_item.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CategoriesHeader extends StatelessWidget {
   const CategoriesHeader({super.key});
@@ -24,9 +24,9 @@ class CategoriesHeader extends StatelessWidget {
         BlocBuilder<CategoriesCubit, CategoriesState>(
           builder: (context, state) {
             if (state is CategoriesLoading) {
-              return _loadingIndicator();
+              return _loadingIndicator(context);
             } else if (state is CategoriesError) {
-              return _errorWidget(state.message);
+              return _errorWidget(context, state.message);
             } else if (state is CategoriesLoaded) {
               return _categoriesLoaded(state);
             }
@@ -57,18 +57,23 @@ class CategoriesHeader extends StatelessWidget {
     );
   }
 
-  Widget _loadingIndicator() {
+  Widget _loadingIndicator(BuildContext context) {
     return Center(
-      child: CircularProgressIndicator(color: ColorsManger.primaryColor),
+      child: CircularProgressIndicator(
+        color: Theme.of(context).colorScheme.primary,
+      ),
     );
   }
 
-  Widget _errorWidget(String error) {
+  Widget _errorWidget(BuildContext context, String error) {
     log('Error loading categories: $error');
     return Center(
       child: Text(
         error,
-        style: TextStyle(color: ColorsManger.errorColor, fontSize: 16),
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.error,
+          fontSize: 16,
+        ),
       ),
     );
   }
