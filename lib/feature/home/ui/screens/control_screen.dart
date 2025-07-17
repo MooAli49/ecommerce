@@ -23,8 +23,6 @@ class _ControlScreenState extends State<ControlScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<ControlCubit, int>(
       builder: (context, state) {
-        // final int currentIndex = ;
-
         Widget currentScreenBody =
             context.read<ControlCubit>().currentScreenBody;
 
@@ -32,6 +30,12 @@ class _ControlScreenState extends State<ControlScreen> {
           body: currentScreenBody,
           bottomNavigationBar: CustomBottomNavigationBar(
             currentIndex: context.read<ControlCubit>().state,
+            onTab: (index) async {
+              if (index == 2) {
+                await context.read<ControlCubit>().getUserData();
+              }
+              context.read<ControlCubit>().changeScreenIndex(index);
+            },
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {

@@ -106,7 +106,11 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> signOut() async {
     try {
       emit(AuthLoading());
-      await Future.wait([_firebaseAuth.signOut(), _googleSignIn.signOut()]);
+      await Future.wait([
+        _firebaseAuth.signOut(),
+        _googleSignIn.signOut(),
+        SharedPrefHelper.removeUser(),
+      ]);
       emit(AuthSignedOut());
     } catch (e) {
       emit(AuthError('Failed to sign out'));
@@ -125,17 +129,13 @@ class AuthCubit extends Cubit<AuthState> {
 
       // Update display name in Firebase Auth
       await userCredential.user?.updateDisplayName(name);
-
-      // Create user model for Firestore
-      final user = UserModel(
-        id: userCredential.user?.uid ?? '',
-        name: name,
-        email: email,
-        photoUrl: userCredential.user?.photoURL ?? 'default',
-      );
-
+      final user = userCredential.user;
+      if (user == null) {
+        emit(AuthError('Failed to retrieve user after sign up'));
+        return;
+      }
       // Save user to Firestore
-      await _firestoreUser.addUserToFirestore(user);
+      await _saveUser(user);
 
       // Clear controllers after successful sign-up
       nameController.clear();

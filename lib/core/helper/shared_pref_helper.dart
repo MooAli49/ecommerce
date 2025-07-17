@@ -69,17 +69,24 @@ class SharedPrefHelper {
   }
 
   static Future<void> setUser(UserModel user) async {
-    debugPrint('SharedPrefHelper : setUser with user : $user');
-    await setData(userKey, user.toJson());
+    final userJsonString = jsonEncode(user.toJson());
+    debugPrint(
+      'SharedPrefHelper : setUser with userJsonString : $userJsonString',
+    );
+    await setData(userKey, userJsonString);
+    debugPrint('SharedPrefHelper : setUser completed');
   }
 
   static Future<UserModel?> getUser() async {
     debugPrint('SharedPrefHelper : getUser');
     final userJsonString = await getString(userKey);
+    debugPrint('SharedPrefHelper : getUser userJsonString: $userJsonString');
     if (userJsonString.isNotEmpty) {
       final userJson = jsonDecode(userJsonString);
+      debugPrint('SharedPrefHelper : getUser parsed userJson: $userJson');
       return UserModel.fromJson(userJson);
     }
+    debugPrint('SharedPrefHelper : getUser no user found, returning null');
     return null;
   }
 
