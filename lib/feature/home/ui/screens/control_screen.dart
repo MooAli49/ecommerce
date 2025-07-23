@@ -2,11 +2,8 @@ import 'package:ecommerce/core/theme/cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../cart/ui/screens/cart_screen.dart';
-import '../../../profile/profile_screen.dart';
 import '../../controller/cubit/control_cubit.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
-import 'home_screen.dart';
 
 class ControlScreen extends StatefulWidget {
   const ControlScreen({super.key});
@@ -17,22 +14,28 @@ class ControlScreen extends StatefulWidget {
 
 class _ControlScreenState extends State<ControlScreen> {
   @override
+  void initState() {
+    super.initState();
+    context.read<ControlCubit>().initialize();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<ControlCubit, int>(
       builder: (context, state) {
-        final int currentIndex = context.read<ControlCubit>().state;
-        final List<Widget> mainScreenBodyWidgets = [
-          HomeScreen(),
-          CartScreen(),
-          ProfileScreen(),
-        ];
-
-        Widget currentScreenBody = mainScreenBodyWidgets[currentIndex];
+        Widget currentScreenBody =
+            context.read<ControlCubit>().currentScreenBody;
 
         return Scaffold(
           body: currentScreenBody,
           bottomNavigationBar: CustomBottomNavigationBar(
-            currentIndex: currentIndex,
+            currentIndex: context.read<ControlCubit>().state,
+            onTab: (index) async {
+              if (index == 2) {
+                await context.read<ControlCubit>().getUserData();
+              }
+              context.read<ControlCubit>().changeScreenIndex(index);
+            },
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
