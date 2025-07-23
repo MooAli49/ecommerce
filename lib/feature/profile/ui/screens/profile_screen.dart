@@ -36,7 +36,6 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDark = context.watch<ThemeCubit>().isDark;
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: SafeArea(
@@ -83,7 +82,7 @@ class ProfileScreen extends StatelessWidget {
                     'Dark Mode',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
-                  value: isDark,
+                  value: context.watch<ThemeCubit>().isDark,
                   onChanged: (value) {
                     context.read<ThemeCubit>().toggleTheme(value);
                   },
