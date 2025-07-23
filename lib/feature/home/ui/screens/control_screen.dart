@@ -1,4 +1,3 @@
-import 'package:ecommerce/core/theme/cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,16 +35,6 @@ class _ControlScreenState extends State<ControlScreen> {
               }
               context.read<ControlCubit>().changeScreenIndex(index);
             },
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              context.read<ThemeCubit>().toggleTheme();
-            },
-            child: Icon(
-              context.watch<ThemeCubit>().state.brightness == Brightness.light
-                  ? Icons.dark_mode
-                  : Icons.light_mode,
-            ),
           ),
         );
       },

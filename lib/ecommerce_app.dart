@@ -11,26 +11,19 @@ class ECommerceApp extends StatelessWidget {
   const ECommerceApp({super.key, required this.appRouter});
   final AppRouter appRouter;
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider<ThemeCubit>(
-      create: (_) => ThemeCubit(),
-      child: Builder(
-        builder:
-            (context) => BlocBuilder<AuthCubit, AuthState>(
-              builder: (context, state) {
-                return MaterialApp(
-                  debugShowCheckedModeBanner: false,
-                  theme: context.watch<ThemeCubit>().state,
-                  home: _buildHomeByAuthState(state),
-                  onGenerateRoute: appRouter.generateRoute,
-                  // initialRoute is not needed when using home
-                );
-              },
-            ),
-      ),
-    );
-  }
+ @override
+Widget build(BuildContext context) {
+  return BlocBuilder<AuthCubit, AuthState>(
+    builder: (context, state) {
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: context.watch<ThemeCubit>().state, // تمام كده
+        home: _buildHomeByAuthState(state),
+        onGenerateRoute: appRouter.generateRoute,
+      );
+    },
+  );
+}
 
   Widget _buildHomeByAuthState(AuthState state) {
     if (state is AuthSuccess) {
