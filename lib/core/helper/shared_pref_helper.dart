@@ -10,14 +10,14 @@ class SharedPrefHelper {
   SharedPrefHelper._();
 
   /// Removes a value from SharedPreferences with given [key].
-  static removeData(String key) async {
+  static Future<void> removeData(String key) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     debugPrint('SharedPrefHelper : data with key : $key has been removed');
     await sharedPreferences.remove(key);
   }
 
   /// Removes all keys and values in the SharedPreferences
-  static clearAllData() async {
+  static Future<void> clearAllData() async {
     debugPrint('SharedPrefHelper : all data has been cleared');
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.clear();

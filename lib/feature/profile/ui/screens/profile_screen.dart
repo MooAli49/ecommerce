@@ -49,10 +49,9 @@ class ProfileScreen extends StatelessWidget {
                   horizontalSpacing(20),
                   CircleAvatar(
                     radius: 50,
-                    backgroundImage:
-                        user.photoUrl == 'default'
-                            ? AssetImage('assets/images/person.png')
-                            : NetworkImage(user.photoUrl),
+                    backgroundImage: user.photoUrl == 'default'
+                        ? const AssetImage('assets/images/person.png')
+                        : NetworkImage(user.photoUrl) as ImageProvider,
                   ),
                   horizontalSpacing(20),
                   Expanded(
