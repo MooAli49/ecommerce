@@ -29,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
           snackBarMessage(context, state.message, Colors.red);
         } else if (state is AuthSuccess) {
           snackBarMessage(context, 'Successfully signed in!', Colors.green);
-          context.pushNamed(Routes.home);
+          context.pushReplacementNamed(Routes.home);
         }
       },
       child: Scaffold(

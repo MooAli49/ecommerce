@@ -4,8 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../controller/cubit/control_cubit.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
-  const CustomBottomNavigationBar({super.key, required this.currentIndex});
+  const CustomBottomNavigationBar({
+    super.key,
+    required this.currentIndex,
+    this.onTab,
+  });
   final int currentIndex;
+  final void Function(int)? onTab;
 
   @override
   Widget build(BuildContext context) {
@@ -140,9 +145,11 @@ class CustomBottomNavigationBar extends StatelessWidget {
               ),
             ],
             currentIndex: currentIndex,
-            onTap: (index) {
-              context.read<ControlCubit>().changeScreenIndex(index);
-            },
+            onTap:
+                onTab ??
+                (index) {
+                  context.read<ControlCubit>().changeScreenIndex(index);
+                },
           ),
         ),
       ),

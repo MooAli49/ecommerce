@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/helper/spacing.dart';
-import '../../../../core/widgets/headline_text.dart';
 import '../../controller/cubit/categories_cubit.dart';
 import '../../data/models/category_model.dart';
 import 'category_item.dart';
@@ -18,7 +17,10 @@ class CategoriesHeader extends StatelessWidget {
       children: [
         Align(
           alignment: Alignment.centerLeft,
-          child: HeadlineText(text: 'Categories'),
+          child: Text(
+            'Categories',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
         ),
         verticalSpacing(5),
         BlocBuilder<CategoriesCubit, CategoriesState>(

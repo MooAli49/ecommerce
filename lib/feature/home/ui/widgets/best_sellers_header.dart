@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/widgets/headline_text.dart';
-
 class BestSellersHeader extends StatelessWidget {
   const BestSellersHeader({super.key});
 
@@ -12,7 +10,10 @@ class BestSellersHeader extends StatelessWidget {
       children: [
         Align(
           alignment: Alignment.centerLeft,
-          child: HeadlineText(text: 'Best Sellers'),
+          child: Text(
+            'Best Sellers',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
         ),
         TextButton(
           onPressed: () {},

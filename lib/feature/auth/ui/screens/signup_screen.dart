@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/helper/constants.dart';
 import '../../../../core/helper/extensions.dart';
 import '../../../../core/helper/spacing.dart';
-import '../../../../core/routing/routes.dart';
 import '../../controller/cubit/auth_cubit.dart';
 import '../widgets/auth_text_field.dart';
 import '../widgets/custom_button.dart';
@@ -27,8 +26,12 @@ class _SignupScreenState extends State<SignupScreen> {
         if (state is AuthError) {
           snackBarMessage(context, state.message, Colors.red);
         } else if (state is AuthSuccess) {
-          snackBarMessage(context, 'Successfully signed up!', Colors.green);
-          context.pushNamed(Routes.home);
+          snackBarMessage(
+            context,
+            'Successfully signed up!',
+            Colors.green,
+          );
+          context.pop();
         }
       },
       child: Scaffold(

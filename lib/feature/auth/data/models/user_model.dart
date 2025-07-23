@@ -10,7 +10,7 @@ class UserModel {
     : id = json['id'] ?? '',
       name = json['name'] ?? '',
       email = json['email'] ?? '',
-      photoUrl = json['photoUrl'] ?? '';
+      photoUrl = json['photoUrl'] ?? 'default';
 
   Map<String, dynamic> toJson() {
     return {'id': id, 'name': name, 'email': email, 'photoUrl': photoUrl};
