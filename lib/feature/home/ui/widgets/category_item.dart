@@ -17,7 +17,7 @@ class CategoryItem extends StatelessWidget {
           SizedBox(
             width: 60,
             height: 60,
-            child: Image.network(
+            child: Image.asset(
               categoryModel.displayImageUrl,
               fit: BoxFit.cover,
               errorBuilder:

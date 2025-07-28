@@ -1,10 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/helper/spacing.dart';
-import '../../controller/cubit/categories_cubit.dart';
 import '../../data/models/category_model.dart';
 import 'category_item.dart';
 
@@ -13,6 +9,14 @@ class CategoriesHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<CategoryModel> categories = [
+      CategoryModel(name: 'Men', imageUrl: 'assets/images/men.jpg'),
+      CategoryModel(name: 'Women', imageUrl: 'assets/images/women.jpg'),
+      CategoryModel(name: 'Kids', imageUrl: 'assets/images/kids.jpg'),
+      CategoryModel(name: 'Plus Size', imageUrl: 'assets/images/plus_size.jpg'),
+      CategoryModel(name: 'Unisex', imageUrl: 'assets/images/men.jpg'),
+    ];
+
     return Column(
       children: [
         Align(
@@ -23,26 +27,12 @@ class CategoriesHeader extends StatelessWidget {
           ),
         ),
         verticalSpacing(5),
-        BlocBuilder<CategoriesCubit, CategoriesState>(
-          builder: (context, state) {
-            if (state is CategoriesLoading) {
-              return _loadingIndicator(context);
-            } else if (state is CategoriesError) {
-              return _errorWidget(context, state.message);
-            } else if (state is CategoriesLoaded) {
-              return _categoriesLoaded(state);
-            }
-            // Default widget if none of the above conditions are met
-            return SizedBox.shrink();
-          },
-        ),
+        _buildCategories(categories),
       ],
     );
   }
 
-  Widget _categoriesLoaded(CategoriesLoaded state) {
-    final List<CategoryModel> categories = state.categories;
-    log('Categories loaded: $categories');
+  Widget _buildCategories(List<CategoryModel> categories) {
     if (categories.isEmpty) {
       return Center(child: Text('No categories available'));
     }
@@ -55,27 +45,6 @@ class CategoriesHeader extends StatelessWidget {
         itemBuilder: (context, index) {
           return CategoryItem(categoryModel: categories[index]);
         },
-      ),
-    );
-  }
-
-  Widget _loadingIndicator(BuildContext context) {
-    return Center(
-      child: CircularProgressIndicator(
-        color: Theme.of(context).colorScheme.primary,
-      ),
-    );
-  }
-
-  Widget _errorWidget(BuildContext context, String error) {
-    log('Error loading categories: $error');
-    return Center(
-      child: Text(
-        error,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.error,
-          fontSize: 16,
-        ),
       ),
     );
   }
