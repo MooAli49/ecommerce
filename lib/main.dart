@@ -9,7 +9,6 @@ import 'core/routing/app_router.dart';
 import 'ecommerce_app.dart';
 import 'feature/auth/controller/cubit/auth_cubit.dart';
 import 'feature/cart/controller/cubit/cart_cubit.dart';
-import 'feature/home/controller/cubit/categories_cubit.dart';
 import 'feature/home/controller/cubit/control_cubit.dart';
 import 'feature/home/controller/cubit/products_cubit.dart';
 import 'feature/profile/cubit/profile_cubit.dart';
@@ -29,7 +28,6 @@ void main() async {
         BlocProvider(create: (_) => getIt<AuthCubit>()),
         BlocProvider(create: (_) => getIt<CartCubit>()),
         BlocProvider(create: (_) => getIt<ControlCubit>()),
-        BlocProvider(create: (_) => getIt<CategoriesCubit>()),
         BlocProvider(create: (_) => getIt<ProductsCubit>()),
         BlocProvider(create: (_) => getIt<ProfileCubit>()),
         BlocProvider(create: (_) => getIt<CheckoutCubit>()),
