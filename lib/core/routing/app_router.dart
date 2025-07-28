@@ -1,3 +1,4 @@
+import 'package:ecommerce/feature/checkout/ui/checkout_screen.dart';
 import 'package:ecommerce/feature/home/data/models/product_model.dart';
 import 'package:ecommerce/feature/home/ui/screens/product_detail_screen.dart';
 import 'package:flutter/material.dart';
@@ -11,19 +12,13 @@ class AppRouter {
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.login:
-        return MaterialPageRoute(
-          builder: (_) => const LoginScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => const LoginScreen());
 
       case Routes.register:
-        return MaterialPageRoute(
-          builder: (_) => const SignupScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => const SignupScreen());
 
       case Routes.home:
-        return MaterialPageRoute(
-          builder: (_) => const ControlScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => const ControlScreen());
 
       case Routes.productDetails:
         final product = settings.arguments;
@@ -33,6 +28,9 @@ class AppRouter {
           );
         }
         return null; // or handle error
+
+      case Routes.checkout:
+        return MaterialPageRoute(builder: (_) => const CheckoutScreen());
 
       default:
         return null;

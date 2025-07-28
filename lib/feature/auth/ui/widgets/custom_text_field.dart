@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AuthTextField extends StatelessWidget {
-  const AuthTextField({
+class CustomTextField extends StatelessWidget {
+  const CustomTextField({
     super.key,
     required this.labelText,
     required this.hintText,
@@ -10,6 +10,8 @@ class AuthTextField extends StatelessWidget {
     this.onObscureChanged,
     this.icon,
     this.controller,
+    this.onChanged,
+    this.validator,
   });
 
   final String labelText;
@@ -17,15 +19,19 @@ class AuthTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final bool isObscure;
   final VoidCallback? onObscureChanged;
+  final Function(String)? onChanged;
   final Widget? icon;
   final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
       obscureText: isObscure,
+      onChanged: onChanged,
+      validator: validator,
       decoration: InputDecoration(
         labelText: labelText,
         hintText: hintText,

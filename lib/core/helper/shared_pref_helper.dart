@@ -94,4 +94,9 @@ class SharedPrefHelper {
     debugPrint('SharedPrefHelper : removeUser');
     await removeData(userKey);
   }
+
+  static Future<void> setDarkMode(bool isDark) async {
+    debugPrint('SharedPrefHelper : setDarkMode with isDark: $isDark');
+    await setData(isDarkModeKey, isDark);
+  }
 }

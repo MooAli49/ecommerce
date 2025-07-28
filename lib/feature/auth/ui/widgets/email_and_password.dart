@@ -1,8 +1,9 @@
-import '../../../../core/helper/spacing.dart';
-import '../../controller/cubit/auth_cubit.dart';
-import 'auth_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../core/helper/spacing.dart';
+import '../../controller/cubit/auth_cubit.dart';
+import 'custom_text_field.dart';
 
 class EmailAndPassword extends StatelessWidget {
   const EmailAndPassword({
@@ -17,7 +18,7 @@ class EmailAndPassword extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        AuthTextField(
+        CustomTextField(
           controller: context.read<AuthCubit>().emailController,
           labelText: 'Email',
           hintText: 'Enter Your Email',
@@ -25,7 +26,7 @@ class EmailAndPassword extends StatelessWidget {
           icon: const Icon(Icons.email_outlined),
         ),
         verticalSpacing(20),
-        AuthTextField(
+        CustomTextField(
           controller: context.read<AuthCubit>().passwordController,
           labelText: 'Password',
           hintText: 'Enter Your Password',
