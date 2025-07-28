@@ -1,15 +1,37 @@
 import 'package:ecommerce/feature/auth/ui/widgets/custom_text_field.dart';
 import 'package:ecommerce/feature/checkout/controller/cubit/checkout_cubit.dart';
+import 'package:ecommerce/feature/checkout/ui/widget/picke_address.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class AddressStep extends StatelessWidget {
+class AddressStep extends StatefulWidget {
   const AddressStep({super.key});
 
   @override
+  State<AddressStep> createState() => _AddressStepState();
+}
+
+class _AddressStepState extends State<AddressStep> {
+  final street1Controller = TextEditingController();
+  final cityController = TextEditingController();
+  final countryController = TextEditingController();
+
+  @override
+  void dispose() {
+    street1Controller.dispose();
+    cityController.dispose();
+    countryController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final cubit = context.read<CheckoutCubit>();
+
     return Form(
-      key: context.read<CheckoutCubit>().addressForm,
+      key: cubit.addressForm,
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -20,57 +42,72 @@ class AddressStep extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             CustomTextField(
-              labelText: 'Street 1',
+              labelText: 'Street',
               hintText: 'Enter your street address',
-              onChanged: (value) {
-                context.read<CheckoutCubit>().street1 = value;
-              },
-              validator: _validator,
-            ),
-            const SizedBox(height: 16),
-            CustomTextField(
-              labelText: 'Street 2',
-              hintText: 'Enter your apartment or suite number',
-              onChanged: (value) {
-                context.read<CheckoutCubit>().street2 = value;
-              },
+              controller: street1Controller,
+              onChanged: (value) => cubit.street1 = value,
               validator: _validator,
             ),
             const SizedBox(height: 16),
             CustomTextField(
               labelText: 'City',
               hintText: 'Enter your city',
-              onChanged: (value) {
-                context.read<CheckoutCubit>().city = value;
-              },
+              controller: cityController,
+              onChanged: (value) => cubit.city = value,
               validator: _validator,
             ),
             const SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: CustomTextField(
-                    labelText: 'State',
-                    hintText: 'Enter your state',
-                    onChanged: (value) {
-                      context.read<CheckoutCubit>().stateLoc = value;
-                    },
-                    validator: _validator,
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: CustomTextField(
-                    labelText: 'Country',
-                    hintText: 'Enter your country',
-                    onChanged: (value) {
-                      context.read<CheckoutCubit>().country = value;
-                    },
-                    validator: _validator,
-                  ),
-                ),
-              ],
+            const SizedBox(width: 16),
+            CustomTextField(
+              labelText: 'Country',
+              hintText: 'Enter your country',
+              controller: countryController,
+              onChanged: (value) => cubit.country = value,
+              validator: _validator,
             ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () async {
+                final LatLng? result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const PickAddress()),
+                );
+
+                if (result != null) {
+                  final placemarks = await placemarkFromCoordinates(
+                    result.latitude,
+                    result.longitude,
+                  );
+
+                  if (placemarks.isNotEmpty) {
+                    final place = placemarks.first;
+
+                    cubit.setAddressFromMap(
+                      lat: result.latitude,
+                      lng: result.longitude,
+                      street: place.street ?? '',
+                      cityName: place.locality ?? '',
+                      state: place.administrativeArea ?? '',
+                      countryName: place.country ?? '',
+                    );
+
+                    // حدث الـ TextFields
+                    setState(() {
+                      street1Controller.text = place.street ?? '';
+                      cityController.text = place.locality ?? '';
+                      countryController.text = place.country ?? '';
+                    });
+                  }
+                }
+              },
+              child: const Text('Pick your address'),
+            ),
+            const SizedBox(height: 8),
+            if (cubit.selectedAddress != null)
+              Text(
+                "Selected: ${cubit.selectedAddress!}",
+                style: const TextStyle(fontSize: 14, color: Colors.grey),
+              ),
           ],
         ),
       ),
@@ -78,7 +115,7 @@ class AddressStep extends StatelessWidget {
   }
 
   String? _validator(value) {
-    if (value!.isEmpty) return "Can't be null";
+    if (value == null || value.isEmpty) return "Can't be empty";
     return null;
   }
 }

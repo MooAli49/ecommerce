@@ -35,3 +35,5 @@ final class CartLoaded extends CartState {
 
   CartLoaded(this.products);
 }
+
+final class CartCleared extends CartState {}

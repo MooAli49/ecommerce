@@ -1,4 +1,8 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:ecommerce/core/helper/enums.dart';
+import 'package:ecommerce/core/helper/extensions.dart';
+import 'package:ecommerce/core/routing/routes.dart';
+import 'package:ecommerce/feature/cart/controller/cubit/cart_cubit.dart';
 import 'package:ecommerce/feature/checkout/controller/cubit/checkout_cubit.dart';
 import 'package:ecommerce/feature/checkout/ui/widget/address_step.dart';
 import 'package:ecommerce/feature/checkout/ui/widget/custom_checkout_stepper.dart';
@@ -52,13 +56,22 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   onPressed:
                       currentStep == 2
                           ? () {
-                            
-                            // Checkout done
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text("Checkout Complete!"),
-                              ),
-                            );
+                            AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.success,
+                              animType: AnimType.rightSlide,
+                              title: 'Checkout Successful!',
+                              desc:
+                                  'Your order has been placed successfully. Thank you!',
+                              btnOkText: 'Back to Home',
+                              btnOkOnPress: () {
+                                context.read<CartCubit>().clearCart();
+                                context.pushAndRemoveUntil(
+                                  Routes.home,
+                                  predicate: (Route<dynamic> route) => false,
+                                ); // Go back or to home
+                              },
+                            ).show();
                           }
                           : context.read<CheckoutCubit>().goNextStep,
                   child: Text(currentStep == 2 ? "Finish" : "Next"),

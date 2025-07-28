@@ -6,6 +6,7 @@ part 'checkout_state.dart';
 
 class CheckoutCubit extends Cubit<CheckoutState> {
   CheckoutCubit() : super(CheckoutInitial());
+
   int _currentStep = 0;
   int get currentStep => _currentStep;
 
@@ -14,35 +15,56 @@ class CheckoutCubit extends Cubit<CheckoutState> {
 
   GlobalKey<FormState> addressForm = GlobalKey<FormState>();
 
-  late String street1, street2, city, stateLoc, country;
+  // بيانات العنوان
+  String? street1, city, stateLoc, country;
+  double? latitude, longitude;
+  String? selectedAddress;
 
   void goNextStep() {
     if (_currentStep >= 2) return;
 
     if (_currentStep == 1) {
       final form = addressForm.currentState!;
-      form;
       if (!form.validate()) return;
     }
 
     _currentStep++;
-
-    emit(CheckoutInitial()); //TODO: Update state to reflect current step
-  }
-
-  String saveAddress() {
-    return '$street1,$street2,$city,$stateLoc,$country';
+    emit(CheckoutStepChanged(_currentStep));
   }
 
   void goPreviousStep() {
     if (_currentStep > 0) {
       _currentStep--;
     }
-    emit(CheckoutInitial()); //TODO: Update state to reflect current step
+    emit(CheckoutStepChanged(_currentStep));
   }
 
   void setDeliveryType(Delivery delivery) {
     _deliveryType = delivery;
-    emit(CheckoutInitial()); //TODO: Update state to reflect delivery type
+    emit(CheckoutDeliveryUpdated(delivery));
+  }
+
+  void setAddressFromMap({
+    required double lat,
+    required double lng,
+    required String street,
+    required String cityName,
+    required String state,
+    required String countryName,
+  }) {
+    latitude = lat;
+    longitude = lng;
+    street1 = street;
+    city = cityName;
+    stateLoc = state;
+    country = countryName;
+
+    selectedAddress = '$street, $cityName, $state, $countryName';
+
+    emit(CheckoutAddressUpdated());
+  }
+
+  String saveAddress() {
+    return '$street1,  $city, $stateLoc, $country';
   }
 }

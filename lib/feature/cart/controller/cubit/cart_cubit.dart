@@ -110,4 +110,17 @@ class CartCubit extends Cubit<CartState> {
       emit(CartError('Failed to decrease product quantity'));
     }
   }
+
+  Future<void> clearCart() async {
+    final dbHelper = CartDatabaseHelper();
+    emit(CartLoading());
+    try {
+      await dbHelper.clearCart();
+      emit(CartCleared());
+      _cartProducts = [];
+      emit(CartLoaded([]));
+    } catch (e) {
+      emit(CartError('Failed to clear cart'));
+    }
+  }
 }
