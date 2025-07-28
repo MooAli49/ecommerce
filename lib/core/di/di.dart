@@ -1,3 +1,5 @@
+import 'package:ecommerce/core/theme/cubit/theme_cubit.dart';
+import 'package:ecommerce/feature/checkout/controller/cubit/checkout_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../feature/auth/controller/cubit/auth_cubit.dart';
@@ -9,6 +11,9 @@ import '../../feature/profile/cubit/profile_cubit.dart';
 
 GetIt getIt = GetIt.instance;
 void setupGetIt() {
+  //! Theme
+  getIt.registerLazySingleton<ThemeCubit>(() => ThemeCubit());
+
   //! auth
   getIt.registerFactory<AuthCubit>(() => AuthCubit());
 
@@ -24,4 +29,7 @@ void setupGetIt() {
 
   //! Profile
   getIt.registerFactory<ProfileCubit>(() => ProfileCubit());
+
+  // checkout
+  getIt.registerFactory<CheckoutCubit>(() => CheckoutCubit());
 }

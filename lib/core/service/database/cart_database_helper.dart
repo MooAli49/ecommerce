@@ -96,4 +96,9 @@ class CartDatabaseHelper {
       whereArgs: [productId],
     );
   }
+
+  Future<void> clearCart() async {
+    final db = await database;
+    await db.delete(cartProductTable);
+  }
 }

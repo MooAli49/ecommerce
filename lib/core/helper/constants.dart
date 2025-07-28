@@ -8,9 +8,9 @@ const String cartProductPriceColumn = 'price';
 const String cartProductQuantityColumn = 'quantity';
 const String cartProductImageColumn = 'image';
 
-  // Constants for SharedPreferences keys
+// Constants for SharedPreferences keys
 const String userKey = 'user';
-
+const String isDarkModeKey = 'isDark';
 
 dynamic snackBarMessage(BuildContext context, String message, Color? color) {
   return ScaffoldMessenger.of(context).showSnackBar(

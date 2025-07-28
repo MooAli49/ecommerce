@@ -3,6 +3,7 @@ import 'package:ecommerce/core/helper/extensions.dart';
 import 'package:ecommerce/core/helper/shared_pref_helper.dart';
 import 'package:ecommerce/core/helper/spacing.dart';
 import 'package:ecommerce/core/routing/routes.dart';
+import 'package:ecommerce/core/theme/cubit/theme_cubit.dart';
 import 'package:ecommerce/feature/auth/controller/cubit/auth_cubit.dart';
 import 'package:ecommerce/feature/auth/data/models/user_model.dart';
 import 'package:flutter/material.dart';
@@ -49,9 +50,10 @@ class ProfileScreen extends StatelessWidget {
                   horizontalSpacing(20),
                   CircleAvatar(
                     radius: 50,
-                    backgroundImage: user.photoUrl == 'default'
-                        ? const AssetImage('assets/images/person.png')
-                        : NetworkImage(user.photoUrl) as ImageProvider,
+                    backgroundImage:
+                        user.photoUrl == 'default'
+                            ? AssetImage('assets/images/person.png')
+                            : NetworkImage(user.photoUrl),
                   ),
                   horizontalSpacing(20),
                   Expanded(
@@ -73,6 +75,19 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
               verticalSpacing(60),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: SwitchListTile(
+                  title: Text(
+                    'Dark Mode',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  value: context.watch<ThemeCubit>().isDark,
+                  onChanged: (value) {
+                    context.read<ThemeCubit>().toggleTheme(value);
+                  },
+                ),
+              ),
               _customListTile(
                 context,
                 icon: Icons.edit,

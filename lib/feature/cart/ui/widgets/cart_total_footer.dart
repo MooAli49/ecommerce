@@ -1,3 +1,5 @@
+import 'package:ecommerce/core/helper/extensions.dart';
+import 'package:ecommerce/core/routing/routes.dart';
 import 'package:flutter/material.dart';
 
 class CartTotalFooter extends StatelessWidget {
@@ -19,7 +21,7 @@ class CartTotalFooter extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () {
-            //TODO implement checkout
+            context.pushNamed(Routes.checkout);
           },
           child: const Text('Checkout'),
         ),

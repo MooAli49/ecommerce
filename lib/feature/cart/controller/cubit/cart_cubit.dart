@@ -9,11 +9,15 @@ part 'cart_state.dart';
 class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitial());
 
+  late List<CartProductModel> _cartProducts;
+  List<CartProductModel> get cartProducts => _cartProducts;
+
   Future<void> fetchCartProducts() async {
     final dbHelper = CartDatabaseHelper();
     emit(CartLoading());
     try {
       final cartProducts = await dbHelper.getCartProducts();
+      _cartProducts = cartProducts;
       emit(CartLoaded(cartProducts));
     } catch (e) {
       emit(CartError('Failed to load cart products'));
@@ -104,6 +108,19 @@ class CartCubit extends Cubit<CartState> {
       await fetchCartProducts();
     } catch (e) {
       emit(CartError('Failed to decrease product quantity'));
+    }
+  }
+
+  Future<void> clearCart() async {
+    final dbHelper = CartDatabaseHelper();
+    emit(CartLoading());
+    try {
+      await dbHelper.clearCart();
+      emit(CartCleared());
+      _cartProducts = [];
+      emit(CartLoaded([]));
+    } catch (e) {
+      emit(CartError('Failed to clear cart'));
     }
   }
 }
