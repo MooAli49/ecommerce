@@ -1,4 +1,5 @@
 import 'package:ecommerce/feature/cart/controller/cubit/cart_cubit.dart';
+import 'package:ecommerce/feature/checkout/controller/cubit/checkout_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -71,6 +72,13 @@ class SummaryStep extends StatelessWidget {
               );
             },
           ),
+        ),
+        const SizedBox(height: 16),
+        Text('Address Summary', style: Theme.of(context).textTheme.titleLarge),
+        const SizedBox(height: 16),
+        Text(
+          context.watch<CheckoutCubit>().saveAddress(),
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
       ],
     );

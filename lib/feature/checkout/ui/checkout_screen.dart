@@ -52,6 +52,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   onPressed:
                       currentStep == 2
                           ? () {
+                            
                             // Checkout done
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
