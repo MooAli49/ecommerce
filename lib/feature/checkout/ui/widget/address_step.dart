@@ -1,6 +1,6 @@
 import 'package:ecommerce/feature/auth/ui/widgets/custom_text_field.dart';
 import 'package:ecommerce/feature/checkout/controller/cubit/checkout_cubit.dart';
-import 'package:ecommerce/feature/checkout/ui/widget/picke_address.dart';
+import 'package:ecommerce/feature/checkout/ui/widget/pick_address.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
@@ -67,39 +67,8 @@ class _AddressStepState extends State<AddressStep> {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () async {
-                final LatLng? result = await Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const PickAddress()),
-                );
-
-                if (result != null) {
-                  final placemarks = await placemarkFromCoordinates(
-                    result.latitude,
-                    result.longitude,
-                  );
-
-                  if (placemarks.isNotEmpty) {
-                    final place = placemarks.first;
-
-                    cubit.setAddressFromMap(
-                      lat: result.latitude,
-                      lng: result.longitude,
-                      street: place.street ?? '',
-                      cityName: place.locality ?? '',
-                      state: place.administrativeArea ?? '',
-                      countryName: place.country ?? '',
-                    );
-
-                    // حدث الـ TextFields
-                    setState(() {
-                      street1Controller.text = place.street ?? '';
-                      cityController.text = place.locality ?? '';
-                      countryController.text = place.country ?? '';
-                    });
-                  }
-                }
-              },
+              onPressed:
+                  () async => await _saveAndUpdateaddress(context, cubit),
               child: const Text('Pick your address'),
             ),
             const SizedBox(height: 8),
@@ -112,6 +81,43 @@ class _AddressStepState extends State<AddressStep> {
         ),
       ),
     );
+  }
+
+  Future<void> _saveAndUpdateaddress(
+    BuildContext context,
+    CheckoutCubit cubit,
+  ) async {
+    {
+      final LatLng? result = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const PickAddress()),
+      );
+
+      if (result != null) {
+        final placemarks = await placemarkFromCoordinates(
+          result.latitude,
+          result.longitude,
+        );
+
+        if (placemarks.isNotEmpty) {
+          final place = placemarks.first;
+
+          cubit.setAddressFromMap(
+            lat: result.latitude,
+            lng: result.longitude,
+            street: place.street ?? '',
+            cityName: place.locality ?? '',
+            countryName: place.country ?? '',
+          );
+
+          setState(() {
+            street1Controller.text = place.street ?? '';
+            cityController.text = place.locality ?? '';
+            countryController.text = place.country ?? '';
+          });
+        }
+      }
+    }
   }
 
   String? _validator(value) {

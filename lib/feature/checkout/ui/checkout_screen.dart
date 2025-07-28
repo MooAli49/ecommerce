@@ -66,6 +66,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               btnOkText: 'Back to Home',
                               btnOkOnPress: () {
                                 context.read<CartCubit>().clearCart();
+                                context.read<CheckoutCubit>().reset();
                                 context.pushAndRemoveUntil(
                                   Routes.home,
                                   predicate: (Route<dynamic> route) => false,

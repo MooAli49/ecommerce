@@ -71,7 +71,10 @@ class _PickAddressState extends State<PickAddress> {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: const Text("تأكيد الموقع", style: TextStyle(fontSize: 18)),
+              child: const Text(
+                "Confirm Location",
+                style: TextStyle(fontSize: 18),
+              ),
             ),
           ),
         ],

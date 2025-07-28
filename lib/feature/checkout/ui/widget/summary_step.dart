@@ -77,7 +77,7 @@ class SummaryStep extends StatelessWidget {
         Text('Address Summary', style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 16),
         Text(
-          context.watch<CheckoutCubit>().saveAddress(),
+          context.watch<CheckoutCubit>().showAddress(),
           style: Theme.of(context).textTheme.bodyLarge,
         ),
       ],

@@ -15,13 +15,15 @@ class CheckoutCubit extends Cubit<CheckoutState> {
 
   GlobalKey<FormState> addressForm = GlobalKey<FormState>();
 
-  // بيانات العنوان
-  String? street1, city, stateLoc, country;
+  String? street1, city, country;
   double? latitude, longitude;
   String? selectedAddress;
 
   void goNextStep() {
-    if (_currentStep >= 2) return;
+    if (_currentStep >= 2) {
+      reset();
+      return;
+    }
 
     if (_currentStep == 1) {
       final form = addressForm.currentState!;
@@ -44,27 +46,33 @@ class CheckoutCubit extends Cubit<CheckoutState> {
     emit(CheckoutDeliveryUpdated(delivery));
   }
 
+  void reset() {
+    _currentStep = 0;
+    _deliveryType = Delivery.standard;
+    selectedAddress = null;
+    emit(CheckoutStepChanged(_currentStep));
+  }
+
   void setAddressFromMap({
     required double lat,
     required double lng,
     required String street,
     required String cityName,
-    required String state,
+
     required String countryName,
   }) {
     latitude = lat;
     longitude = lng;
     street1 = street;
     city = cityName;
-    stateLoc = state;
     country = countryName;
 
-    selectedAddress = '$street, $cityName, $state, $countryName';
+    selectedAddress = '$street, $cityName, $countryName';
 
     emit(CheckoutAddressUpdated());
   }
 
-  String saveAddress() {
-    return '$street1,  $city, $stateLoc, $country';
+  String showAddress() {
+    return '$street1,  $city, $country';
   }
 }
