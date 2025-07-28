@@ -5,7 +5,7 @@ import '../../../../core/helper/constants.dart';
 import '../../../../core/helper/extensions.dart';
 import '../../../../core/helper/spacing.dart';
 import '../../controller/cubit/auth_cubit.dart';
-import '../widgets/auth_text_field.dart';
+import '../widgets/custom_text_field.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/welcome_row.dart';
 
@@ -26,11 +26,7 @@ class _SignupScreenState extends State<SignupScreen> {
         if (state is AuthError) {
           snackBarMessage(context, state.message, Colors.red);
         } else if (state is AuthSuccess) {
-          snackBarMessage(
-            context,
-            'Successfully signed up!',
-            Colors.green,
-          );
+          snackBarMessage(context, 'Successfully signed up!', Colors.green);
           context.pop();
         }
       },
@@ -65,14 +61,14 @@ class _SignupScreenState extends State<SignupScreen> {
                         },
                       ),
                       verticalSpacing(20),
-                      AuthTextField(
+                      CustomTextField(
                         controller: authController.nameController,
                         labelText: 'Name',
                         hintText: 'Enter Your Name',
                         icon: const Icon(Icons.person_outline),
                       ),
                       verticalSpacing(20),
-                      AuthTextField(
+                      CustomTextField(
                         controller: authController.emailController,
                         labelText: 'Email',
                         hintText: 'Enter Your Email',
@@ -80,7 +76,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         icon: const Icon(Icons.email_outlined),
                       ),
                       verticalSpacing(20),
-                      AuthTextField(
+                      CustomTextField(
                         controller: authController.passwordController,
                         labelText: 'Password',
                         hintText: 'Enter Your Password',

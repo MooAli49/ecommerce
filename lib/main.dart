@@ -1,4 +1,5 @@
 import 'package:ecommerce/core/theme/cubit/theme_cubit.dart';
+import 'package:ecommerce/feature/checkout/controller/cubit/checkout_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,6 +32,7 @@ void main() async {
         BlocProvider(create: (_) => getIt<CategoriesCubit>()),
         BlocProvider(create: (_) => getIt<ProductsCubit>()),
         BlocProvider(create: (_) => getIt<ProfileCubit>()),
+        BlocProvider(create: (_) => getIt<CheckoutCubit>()),
         // BlocProvider(create: (_) => getIt<CheckoutCubit>()),
       ],
       child: ECommerceApp(appRouter: AppRouter()),
