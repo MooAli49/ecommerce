@@ -82,6 +82,7 @@ A modern, feature-rich e-commerce mobile application built with Flutter, featuri
 ![8](https://github.com/user-attachments/assets/f7984df5-5f28-4451-b2de-f461cf74e7e0)
 ![9](https://github.com/user-attachments/assets/c7e434f4-c257-4266-a87d-be3b116d5964)
 ![10](https://github.com/user-attachments/assets/6b6719da-fddd-446c-9ad1-c7565bcbbaee)
+![11](https://github.com/user-attachments/assets/93192c05-022b-4e21-9329-c7ce60c1e5b4)
 
 ## 🚀 Getting Started
 
