@@ -1,4 +1,4 @@
-![7](https://github.com/user-attachments/assets/102834fe-1245-429e-adae-1a54eff993aa)![3](https://github.com/user-attachments/assets/155dbff1-6c22-44ac-a367-9b58966e2715)# 🛍 E-Commerce Flutter App
+# 🛍 E-Commerce Flutter App
 
 A modern, feature-rich e-commerce mobile application built with Flutter, featuring a beautiful UI, secure authentication, shopping cart functionality, and seamless checkout experience.
 
